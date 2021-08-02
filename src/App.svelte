@@ -1,30 +1,28 @@
 <script lang="ts">
-	export let name: string;
+	import scheduleStore from "./stores/schedule-store";
+
+	const updateUser = (user) => {
+		console.log(user);
+		fetch("/schedule/user", {
+			method: "PUT",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ id: user.id, name: user.name }),
+		})
+			.then((response) => response.json())
+			.then((data) => {
+				console.log(data);
+			});
+	};
 </script>
 
-<main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
-</main>
+<div>
+	{#if $scheduleStore}
+		{#each $scheduleStore.users as user}
+			<div>{user.name}</div>
+			<button on:click={updateUser(user)}>Change User</button>
+		{/each}
+	{/if}
+</div>
 
 <style>
-	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
-	}
-
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
-
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
-	}
 </style>
