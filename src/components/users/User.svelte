@@ -3,8 +3,15 @@
     export let user;
 </script>
 
-<div>{user.name}</div>
-<button on:click={modifyUser(user)}>Update User</button>
+<tr>
+    <td>{user.name}</td>
+    <td>{user.surname}</td>
+    <td>{user.email}</td>
+    <td>{user.phone}</td>
+    <td>{user.role}</td>
+    <td>{user.websiteRole}</td>
+    <td><button on:click={modifyUser(user)}>Update User</button></td>
+</tr>
 
 <style>
 </style>

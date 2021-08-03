@@ -9,41 +9,27 @@ fetch("/schedule/true")
         schedule.set(data)
     });
 
+export default schedule;
 
-export const modifyUser = (user) => {
-    console.log("modifyUser from schedule-store");
-    console.log(user);
+
+export const modifyUser = (modifiedUser) => {
+
     fetch("/schedule/user/modify", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id: user.id, name: user.name + "1" }),
+        body: JSON.stringify({ id: modifiedUser.id, name: modifiedUser.name + "1" })
     })
         .then((response) => response.json())
-        .then((modifiedUser) => {
-
-
+        .then((newUser) => {
             schedule.update((oldSchedule) => {
-
                 let newSchedule = { ...oldSchedule };
-
-
-                const userIndex = newSchedule.users.findIndex((u) => u.id == modifiedUser.id);
-                const oldUser = newSchedule.users[userIndex];
-                newSchedule.users.splice(userIndex, 1, modifiedUser);
-                console.log(userIndex);
-                console.log(newSchedule);
+                const index = newSchedule.users.findIndex((oldUser) => oldUser.id == newUser.id);
+                const oldUser = newSchedule.users[index];
+                newSchedule.users.splice(index, 1, newUser);
                 return newSchedule;
-
-
-
             })
-
-
-
-
-
         });
 };
 
 
-export default schedule;
+
