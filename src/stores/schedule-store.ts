@@ -6,7 +6,14 @@ fetch("/schedule/contents")
     .then(response => response.json())
     .then((data) => {
         console.log(data);
-        schedule.set(data)
+        schedule.set(data);
+
+
+
+        data.events.forEach((event) => { eventFor(event) });
+
+
+
     });
 
 export default schedule;
@@ -58,3 +65,18 @@ export const logout = () => {
       }
 
 };
+
+const eventFor = (event) => {
+
+    const dateAndTime = new Date(event.dateAndTime);
+
+    console.log({
+        ...event,
+        dateAndTime: dateAndTime,
+        year: dateAndTime.getFullYear(),
+        month: dateAndTime.getMonth(),
+        date: dateAndTime.getDate(),
+        hours: dateAndTime.getHours(),
+        minutes: dateAndTime.getMinutes()
+    });
+}
