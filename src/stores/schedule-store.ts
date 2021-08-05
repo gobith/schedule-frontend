@@ -44,5 +44,17 @@ export const login = (email, password) => {
             schedule.update((oldSchedule) => { return newSchedule }
       }
 
-}
+};
 
+
+export const logout = () => {
+
+    let url = "/schedule/logout";
+
+    fetch(url)
+        .then((response) => response.json())
+        .then((newSchedule) => {
+            schedule.update((oldSchedule) => { return newSchedule }
+      }
+
+};
