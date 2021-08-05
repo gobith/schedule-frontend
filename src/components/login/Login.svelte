@@ -1,18 +1,15 @@
 <script lang="ts">
+    import { login } from "../../stores/schedule-store";
     let email = "";
     let password = "";
-
-    const login = () => {
-        console.log({ email, password });
-    };
 </script>
 
 <div>
-    <form on:submit|preventDefault={login}>
-        <label>Email</label>
+    <form on:submit|preventDefault={login(email, password)}>
+        <label for="email">Email</label>
         <input name="email" placeholder="name@example.com" bind:value={email} />
 
-        <label>Password</label>
+        <label for="password">Password</label>
         <input name="password" type="password" bind:value={password} />
 
         <button type="submit"> log in </button>

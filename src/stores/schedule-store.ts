@@ -2,7 +2,7 @@ import { writable } from "svelte/store";
 
 const schedule = writable(null);
 
-fetch("/schedule/true")
+fetch("/schedule/contents")
     .then(response => response.json())
     .then((data) => {
         console.log(data);
@@ -31,5 +31,18 @@ export const modifyUser = (modifiedUser) => {
         });
 };
 
+export const login = (email, password) => {
 
+    let url = "/schedule/login";
+
+    let headers = new Headers();
+    headers.set("Authorization", "Basic " + btoa(email + ":" + password));
+
+    fetch(url, { method: "GET", headers: headers })
+        .then((response) => response.json())
+        .then((newSchedule) => {
+            schedule.update((oldSchedule) => { return newSchedule }
+      }
+
+}
 
