@@ -4,15 +4,9 @@ const schedule = writable(null);
 
 fetch("/schedule/contents")
     .then(response => response.json())
-    .then((data) => {
-        console.log(data);
-        schedule.set(data);
+    .then((scheduleData) => {
 
-
-
-        data.events.forEach((event) => { eventFor(event) });
-
-
+        schedule.set(scheduleFor(scheduleData));
 
     });
 
@@ -47,8 +41,8 @@ export const login = (email, password) => {
 
     fetch(url, { method: "GET", headers: headers })
         .then((response) => response.json())
-        .then((newSchedule) => {
-            schedule.update((oldSchedule) => { return newSchedule }
+        .then((scheduleData) => {
+            schedule.update((oldSchedule) => { return scheduleFor(scheduleData) }
       }
 
 };
@@ -70,7 +64,7 @@ const eventFor = (event) => {
 
     const dateAndTime = new Date(event.dateAndTime);
 
-    console.log({
+    const newEvent = {
         ...event,
         dateAndTime: dateAndTime,
         year: dateAndTime.getFullYear(),
@@ -78,5 +72,14 @@ const eventFor = (event) => {
         date: dateAndTime.getDate(),
         hours: dateAndTime.getHours(),
         minutes: dateAndTime.getMinutes()
-    });
+    };
+    return newEvent
+}
+
+const scheduleFor = (scheduleData) => {
+
+    const events = scheduleData.events.map((event) => { return eventFor(event) });
+
+    return { ...scheduleData, events };
+
 }
