@@ -3,10 +3,13 @@
     export let events;
     import { groupBy } from "../../extensions";
 
-    $: groupedEvents = groupBy(events, "year");
+    $: years = groupBy(events, "year");
+    $: yearKeys = Object.keys(years);
 </script>
 
-<div>{JSON.stringify(groupedEvents)}</div>
+{#each yearKeys as yearKey}
+    <div>{yearKey}</div>
+{/each}
 
 <style>
 </style>

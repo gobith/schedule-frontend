@@ -54,8 +54,8 @@ export const logout = () => {
 
     fetch(url)
         .then((response) => response.json())
-        .then((newSchedule) => {
-            schedule.update((oldSchedule) => { return newSchedule }
+        .then((scheduleData) => {
+            schedule.update((oldSchedule) => { return scheduleFor(scheduleData) }
       }
 
 };
@@ -79,7 +79,8 @@ const eventFor = (event) => {
 const scheduleFor = (scheduleData) => {
 
     const events = scheduleData.events.map((event) => { return eventFor(event) });
+    const user = scheduleData.users.find((usr) => usr.id === scheduleData.userId);
 
-    return { ...scheduleData, events };
+    return { ...scheduleData, events, user };
 
 }
