@@ -1,15 +1,12 @@
 <script lang="ts">
     export let users;
     export let events;
-    import { groupBy } from "../../extensions";
+    import { scheduleYears } from "./schedule";
 
-    $: years = groupBy(events, "year");
-    $: yearKeys = Object.keys(years);
+    $: schedule = scheduleYears(users, events);
 </script>
 
-{#each yearKeys as yearKey}
-    <div>{yearKey}</div>
-{/each}
+<div>Robin is nat</div>
 
 <style>
 </style>
