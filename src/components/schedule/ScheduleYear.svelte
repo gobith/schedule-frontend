@@ -4,12 +4,11 @@
   export let year;
   export let users;
 
-  console.log(year);
-  console.log(users);
+  $: numberOfMonths = year.children.length;
 </script>
 
 <div>{year.name}</div>
-<div class="columns">
+<div class="columns" style="--number-of-months: {numberOfMonths}">
   <ScheduleUsers {users} />
   {#each year.children as month}
     <ScheduleMonth {month} {users} />
@@ -19,6 +18,6 @@
 <style>
   .columns {
     display: grid;
-    grid-template-columns: repeat(12, auto);
+    grid-template-columns: 14em repeat(var(--number-of-months), auto);
   }
 </style>

@@ -1,9 +1,9 @@
 <script lang="ts">
-    export let user;
+  export let user;
 </script>
 
 {#if user}
-    <div>Hallo {user.name}</div>
+  <div>Hallo Beste {user.name}</div>
 {/if}
 
 <style>

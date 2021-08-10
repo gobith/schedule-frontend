@@ -5,8 +5,6 @@
   export let years;
   export let yearIndex;
 
-  console.log(years);
-
   $: year = years[yearIndex];
   $: scheduleUsers = users.filter((user) => {
     return true;
@@ -37,7 +35,7 @@
 
 <style>
   .schedule {
-    font-size: 10px;
-    /* width: 66em; */
+    font-size: 12px;
+    width: min-content;
   }
 </style>

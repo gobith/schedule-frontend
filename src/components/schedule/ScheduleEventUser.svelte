@@ -8,7 +8,7 @@
 <style>
   .container {
     margin: 0px;
-    height: 1.2em;
+    height: 1.4em;
     border-bottom: 1px solid gray;
     border-right: 1px solid gray;
     font-size: 1em;

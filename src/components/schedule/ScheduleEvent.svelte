@@ -5,7 +5,9 @@
 </script>
 
 <div>
-  <div class="title">{event.timeString}</div>
+  <div class="title">
+    <div class="vertical">{event.timeString}</div>
+  </div>
   {#each users as user}
     <ScheduleEventUser {user} {event} />
   {/each}
@@ -13,10 +15,13 @@
 
 <style>
   .title {
-    text-align: center;
     border-bottom: 1px solid gray;
     border-right: 1px solid gray;
-    padding-right: 0.3em;
-    padding-left: 0.3em;
+    padding-bottom: 0.8em;
+    padding-top: 0.8em;
+  }
+
+  .vertical {
+    transform: rotate(-90deg);
   }
 </style>
