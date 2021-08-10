@@ -63,6 +63,7 @@ export const logout = () => {
 const eventFor = (event) => {
 
     const dateAndTime = new Date(event.dateAndTime);
+    const timeString = `${dateAndTime.getHours().toString().padStart( 2 , '0')}:${dateAndTime.getMinutes().toString().padEnd(2 , '0')}`;
 
     const newEvent = {
         ...event,
@@ -71,7 +72,8 @@ const eventFor = (event) => {
         month: dateAndTime.getMonth(),
         date: dateAndTime.getDate(),
         hours: dateAndTime.getHours(),
-        minutes: dateAndTime.getMinutes()
+        minutes: dateAndTime.getMinutes() ,
+        timeString: timeString
     };
     return newEvent
 }
