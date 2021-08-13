@@ -4,18 +4,18 @@
   import Users from "./components/users/Users.svelte";
   import Login from "./components/login/Login.svelte";
   import Logout from "./components/logout/Logout.svelte";
-  import Schedule from "./components/schedule/Schedule.svelte";
+  import ScheduleGrid from "./components/schedule/Schedule.svelte";
+  import ScheduleTable from "./components/schedule-table/Schedule.svelte";
 </script>
 
-<div>
-  {#if $scheduleStore}
-    <Login />
-    <Logout />
-    <Welcome user={$scheduleStore.user} />
-    <Users users={$scheduleStore.users} />
-    <Schedule users={$scheduleStore.users} events={$scheduleStore.events} />
-  {/if}
-</div>
+{#if $scheduleStore}
+  <Login />
+  <Logout />
+  <Welcome user={$scheduleStore.user} />
+  <Users users={$scheduleStore.users} />
+  <ScheduleGrid users={$scheduleStore.users} events={$scheduleStore.events} />
+  <ScheduleTable users={$scheduleStore.users} events={$scheduleStore.events} />
+{/if}
 
 <style>
   :global(*) {

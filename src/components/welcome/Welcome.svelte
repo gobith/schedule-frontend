@@ -3,7 +3,7 @@
 </script>
 
 {#if user}
-  <div>Hallo Beste {user.name}</div>
+  <div>Hallo {user.name}</div>
 {/if}
 
 <style>

@@ -37,7 +37,5 @@
 
 <style>
   .schedule {
-    font-size: 12px;
-    width: min-content;
   }
 </style>

@@ -1,4 +1,4 @@
-import { groupBy } from "../../extensions";
+import { groupBy } from "./extensions";
 
 export const scheduleYears = (users, events) => {
   const years = [];
@@ -18,19 +18,28 @@ export const scheduleYears = (users, events) => {
   return { users: scheduleUsers, years: reverseYears };
 };
 
-const addYear = (yearIndex, eventCollection, years) => {
+const addYear = (yearIndex, events, years) => {
   const months = [];
-  const year = { name: yearIndex, children: months };
+  const days = [];
+  const sortedEvents = events.sort((a, b) => {
+    return a.dateAndTime - b.dateAndTime;
+  });
+  const year = {
+    name: yearIndex,
+    children: months,
+    days,
+    events: sortedEvents,
+  };
   years.push(year);
-  const perMonth = groupBy(eventCollection, "month");
+  const perMonth = groupBy(events, "month");
   const indexes = Object.keys(perMonth);
 
   indexes.forEach((index) => {
-    addMonth(index, perMonth[index], months);
+    addMonth(index, perMonth[index], months, days);
   });
 };
 
-const addMonth = (monthIndex, eventCollection, months) => {
+const addMonth = (monthIndex, eventCollection, months, allDays) => {
   const monthNames = [
     "Jan",
     "Feb",
@@ -56,6 +65,9 @@ const addMonth = (monthIndex, eventCollection, months) => {
 
   indexes.forEach((index) => {
     addDay(index, perDay[index], days);
+  });
+  days.forEach((day) => {
+    allDays.push(day);
   });
 };
 

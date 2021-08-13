@@ -77,12 +77,59 @@ const eventFor = (event) => {
     };
     return newEvent
 }
+interface Schedule {
+    users: User[];
+    events: Event[];
+    user: User;
+}
 
-const scheduleFor = (scheduleData) => {
+interface User {
+    id: string;
+    email: string;
+    name: string;
+    surname: string;
+    phone: string;
+    role: string;
+    websiteRole: string;
+    showInSchedule: boolean;
+    categoryStatus: CategoryStatus[]
+}
 
-    const events = scheduleData.events.map((event) => { return eventFor(event) });
-    const user = scheduleData.users.find((usr) => usr.id === scheduleData.userId);
+interface Event {
+    id: string;
+    status: string;
+    category: string;
+    dateAndTime: Date;
+    description: string;
+    location: string;
+    nrOfUsers: number;
+    userStatus: UserStatus[];
+    year: number;
+    month: string;
+    date: number;
+    hours: number;
+    minutes: number;
+    timeString: string
+}
 
-    return { ...scheduleData, events, user };
+interface UserStatus {
+    user: string;
+    status: string;
+}
+
+interface CategoryStatus {
+    category: string;
+    status: string
+}
+
+const scheduleFor = (scheduleData): Schedule => {
+
+    const users: User[] = scheduleData.users;
+    const events: Event[] = scheduleData.events.map((event) => { return eventFor(event) });
+    const user: User = scheduleData.users.find((usr) => usr.id === scheduleData.userId);
+
+    const schedule: Schedule = { users, events, user };
+    console.log(schedule);
+    return schedule
 
 }
