@@ -1,8 +1,9 @@
 <script lang="ts">
+  import { createEventDispatcher } from "svelte";
+  import { fade } from "svelte/transition";
+
   export let event;
   export let user;
-
-  import { createEventDispatcher } from "svelte";
 
   const dispatch = createEventDispatcher();
 
@@ -11,8 +12,13 @@
   };
 </script>
 
-<div class="background">
-  <div class="modal">
+<div
+  in:fade={{ duration: 250 }}
+  out:fade={{ duration: 500 }}
+  class="background"
+  on:click={close}
+>
+  <div in:fade={{ duration: 500 }} out:fade={{ duration: 250 }} class="modal">
     <div>{event.timeString}</div>
     <div>{user.name}</div>
     <button on:click={close}>Close</button>

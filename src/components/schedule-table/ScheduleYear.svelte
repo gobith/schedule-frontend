@@ -1,8 +1,21 @@
 <script lang="ts">
   import ScheduleEventUser from "./ScheduleEventUser.svelte";
+  import EventUserModal from "./EventUserModal.svelte";
 
   export let year;
   export let users;
+
+  let showModal = false;
+  let eventUser;
+
+  const showEventUser = (event) => {
+    eventUser = event.detail;
+    showModal = true;
+  };
+
+  const closeModal = () => {
+    showModal = false;
+  };
 </script>
 
 <div>{year.name}</div>
@@ -33,16 +46,24 @@
         {user.name}
       </td>
       {#each year.events as event}
-        <ScheduleEventUser {event} {user} on:message />
+        <ScheduleEventUser {event} {user} on:message={showEventUser} />
       {/each}
     </tr>
   {/each}
+  {#if showModal}
+    <EventUserModal
+      event={eventUser.event}
+      user={eventUser.user}
+      on:close={closeModal}
+    />
+  {/if}
 </table>
 
 <style>
   table {
     font-size: 8px;
     border-collapse: collapse;
+    position: relative;
   }
 
   table,
