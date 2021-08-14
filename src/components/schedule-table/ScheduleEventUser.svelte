@@ -4,6 +4,7 @@
 
   export let event;
   export let user;
+  export let statusPermissions;
 
   $: userStatus = event.userStatus.find((us) => {
     return us.user === user.id;
@@ -13,7 +14,7 @@
   const dispatch = createEventDispatcher();
 
   const showEventUser = () => {
-    dispatch("message", { event, user });
+    dispatch("message", { event, user, statusPermissions });
   };
 </script>
 

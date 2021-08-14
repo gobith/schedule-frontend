@@ -1,11 +1,12 @@
 <script lang="ts">
   export let users;
   export let events;
+  export let categories;
 
-  import { scheduleYears } from "../../schedule";
+  import { categoriesToSchedules } from "../../schedule";
   import ScheduleYears from "./ScheduleYears.svelte";
 
-  $: schedule = scheduleYears(users, events);
+  $: schedule = categoriesToSchedules(users, events, categories);
 </script>
 
 {#if schedule.years.length !== 0}

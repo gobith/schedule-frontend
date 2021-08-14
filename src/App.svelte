@@ -4,7 +4,6 @@
   import Users from "./components/users/Users.svelte";
   import Login from "./components/login/Login.svelte";
   import Logout from "./components/logout/Logout.svelte";
-  import ScheduleGrid from "./components/schedule/Schedule.svelte";
   import ScheduleTable from "./components/schedule-table/Schedule.svelte";
 </script>
 
@@ -19,7 +18,6 @@
     user={$scheduleStore.user}
   />
   <Users users={$scheduleStore.users} />
-  <ScheduleGrid users={$scheduleStore.users} events={$scheduleStore.events} />
 {/if}
 
 <style>

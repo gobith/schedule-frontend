@@ -4,6 +4,7 @@
 
   export let event;
   export let user;
+  export let statusPermissions;
 
   const dispatch = createEventDispatcher();
 
@@ -21,6 +22,7 @@
   <div in:fade={{ duration: 500 }} out:fade={{ duration: 250 }} class="modal">
     <div>{event.timeString}</div>
     <div>{user.name}</div>
+    <div>{statusPermissions}</div>
     <button on:click={close}>Close</button>
   </div>
 </div>

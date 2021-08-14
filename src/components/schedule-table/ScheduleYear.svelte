@@ -5,6 +5,7 @@
 
   export let year;
   export let users;
+  export let statusPermissions;
 
   let showModal = false;
   let eventUser;
@@ -47,7 +48,12 @@
         {user.name}
       </td>
       {#each year.events as event}
-        <ScheduleEventUser {event} {user} on:message={showEventUser} />
+        <ScheduleEventUser
+          {event}
+          {user}
+          statusPermissions={statusPermissions.user}
+          on:message={showEventUser}
+        />
       {/each}
     </tr>
   {/each}
@@ -55,6 +61,7 @@
     <EventUserModal
       event={eventUser.event}
       user={eventUser.user}
+      statusPermissions={eventUser.statusPermissions}
       on:close={closeModal}
     />
   {/if}

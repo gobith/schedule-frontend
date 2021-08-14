@@ -1,6 +1,7 @@
 <script lang="ts">
   import ScheduleYear from "./ScheduleYear.svelte";
 
+  export let category;
   export let users;
   export let years;
   export let yearIndex;
@@ -30,9 +31,14 @@
 </script>
 
 <div class="schedule">
+  <h1>{category.name}</h1>
   <button on:click={backwards}>&#8592;</button>
   <button on:click={forwards}>&#8594;</button>
-  <ScheduleYear {year} users={scheduleUsers} />
+  <ScheduleYear
+    {year}
+    users={scheduleUsers}
+    statusPermissions={category.statusPermissions}
+  />
 </div>
 
 <style>

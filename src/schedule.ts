@@ -1,6 +1,27 @@
 import { groupBy } from "./extensions";
 
-export const categorySchedules = (users, events, categories) => {
+export const categoriesToSchedules = (users, events, categories) => {
+  const cat = categories.map((category) => {
+    return categorySchedules(category, users, events);
+  });
+  console.log(cat);
+  return cat;
+};
+
+const categorySchedules = (category, users, events) => {
+  const categoryEvents = events.filter((event) => {
+    return event.category === category.id;
+  });
+
+  const scheduleUsers = users.filter((user) => {
+    return user.showInSchedule;
+  });
+  const years = scheduleYears(scheduleUsers, categoryEvents);
+
+  return { category, users: scheduleUsers, years: years };
+};
+
+const scheduleYears = (users, events) => {
   const years = [];
 
   const perYear = groupBy(events, "year");
@@ -11,11 +32,8 @@ export const categorySchedules = (users, events, categories) => {
   });
 
   const reverseYears = years.reverse();
-  const scheduleUsers = users.filter((user) => {
-    return user.showInSchedule;
-  });
 
-  return { users: scheduleUsers, years: reverseYears };
+  return reverseYears;
 };
 
 const addYear = (yearIndex, events, years) => {
