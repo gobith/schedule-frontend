@@ -1,5 +1,7 @@
 <script lang="ts">
   import { scheduleColor } from "../../scheduleColor";
+  import { createEventDispatcher } from "svelte";
+
   export let event;
   export let user;
 
@@ -8,8 +10,10 @@
   });
   $: color = scheduleColor(event, userStatus);
 
+  const dispatch = createEventDispatcher();
+
   const showEventUser = () => {
-    console.log({ event, user });
+    dispatch("message", { event, user });
   };
 </script>
 

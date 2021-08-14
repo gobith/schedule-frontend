@@ -1,9 +1,13 @@
 <script lang="ts">
   import ScheduleYear from "./ScheduleYear.svelte";
+  import EventUserModal from "./EventUserModal.svelte";
 
   export let users;
   export let years;
   export let yearIndex;
+
+  let showModal = false;
+  let eventUser;
 
   console.log(years);
 
@@ -27,15 +31,33 @@
       yearIndex = yearIndex + 1;
     }
   };
+
+  const showEventUser = (event) => {
+    eventUser = event.detail;
+    showModal = true;
+  };
+
+  const closeModal = () => {
+    showModal = false;
+  };
 </script>
 
 <div class="schedule">
+  {#if showModal}
+    <EventUserModal
+      event={eventUser.event}
+      user={eventUser.user}
+      on:close={closeModal}
+    />
+  {/if}
+
   <button on:click={backwards}>&#8592;</button>
   <button on:click={forwards}>&#8594;</button>
-  <ScheduleYear {year} users={scheduleUsers} />
+  <ScheduleYear {year} users={scheduleUsers} on:message={showEventUser} />
 </div>
 
 <style>
   .schedule {
+    position: relative;
   }
 </style>

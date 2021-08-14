@@ -33,7 +33,7 @@
         {user.name}
       </td>
       {#each year.events as event}
-        <ScheduleEventUser {event} {user} />
+        <ScheduleEventUser {event} {user} on:message />
       {/each}
     </tr>
   {/each}
@@ -43,7 +43,6 @@
   table {
     font-size: 8px;
     border-collapse: collapse;
-    position: relative;
   }
 
   table,
