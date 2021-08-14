@@ -1,6 +1,7 @@
 <script lang="ts">
   import ScheduleEventUser from "./ScheduleEventUser.svelte";
   import EventUserModal from "./EventUserModal.svelte";
+  import { fade } from "svelte/transition";
 
   export let year;
   export let users;
@@ -19,7 +20,7 @@
 </script>
 
 <div>{year.name}</div>
-<table>
+<table in:fade={{ duration: 500 }}>
   <tr>
     <th class="title-td">Maand</th>
     {#each year.children as month}

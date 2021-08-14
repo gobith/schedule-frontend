@@ -1,6 +1,6 @@
 import { groupBy } from "./extensions";
 
-export const scheduleYears = (users, events) => {
+export const categorySchedules = (users, events, categories) => {
   const years = [];
 
   const perYear = groupBy(events, "year");

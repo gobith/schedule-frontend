@@ -80,6 +80,7 @@ const eventFor = (event) => {
 interface Schedule {
     users: User[];
     events: Event[];
+    categories: Category[];
     user: User;
 }
 
@@ -122,13 +123,26 @@ interface CategoryStatus {
     status: string
 }
 
+interface Category {
+    id: string;
+    name: string;
+    description: string;
+    statusPermissions: StatusPermissions
+}
+
+interface StatusPermissions {
+    event: string[];
+    user: string[];
+}
+
 const scheduleFor = (scheduleData): Schedule => {
 
     const users: User[] = scheduleData.users;
     const events: Event[] = scheduleData.events.map((event) => { return eventFor(event) });
+    const categories: Category[] = scheduleData.categories;
     const user: User = scheduleData.users.find((usr) => usr.id === scheduleData.userId);
 
-    const schedule: Schedule = { users, events, user };
+    const schedule: Schedule = { users, events, categories , user };
     console.log(schedule);
     return schedule
 

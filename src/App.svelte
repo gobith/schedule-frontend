@@ -12,7 +12,12 @@
   <Login />
   <Logout />
   <Welcome user={$scheduleStore.user} />
-  <ScheduleTable users={$scheduleStore.users} events={$scheduleStore.events} />
+  <ScheduleTable
+    users={$scheduleStore.users}
+    events={$scheduleStore.events}
+    categories={$scheduleStore.categories}
+    user={$scheduleStore.user}
+  />
   <Users users={$scheduleStore.users} />
   <ScheduleGrid users={$scheduleStore.users} events={$scheduleStore.events} />
 {/if}

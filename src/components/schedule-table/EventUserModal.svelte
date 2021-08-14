@@ -39,13 +39,14 @@
     background: rgba(0, 0, 0, 0.66);
   }
   .modal {
-    position: relative;
-    width: 40rem;
+    width: 40em;
+    height: 40em;
     max-width: 100%;
     max-height: 100%;
-    margin: 2rem auto;
+    margin: 2em auto;
     color: black;
-    border-radius: 0.5rem;
-    background: white;
+    border-radius: 0.5em;
+    background: rgba(255, 255, 255, 1);
+    border: 1px solid black;
   }
 </style>
