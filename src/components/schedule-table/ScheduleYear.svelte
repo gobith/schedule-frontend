@@ -10,13 +10,13 @@
   <tr>
     <th class="title-td">Maand</th>
     {#each year.children as month}
-      <th colspan={month.numberOfColumns}>{month.name}</th>
+      <th class="month" colspan={month.numberOfColumns}>{month.name}</th>
     {/each}
   </tr>
   <tr>
     <th class="title-td">Dag</th>
     {#each year.days as day}
-      <th colspan={day.numberOfColumns}>{day.name}</th>
+      <th class="day" colspan={day.numberOfColumns}>{day.name}</th>
     {/each}
   </tr>
   <tr>
@@ -33,9 +33,7 @@
         {user.name}
       </td>
       {#each year.events as event}
-        <td class="event-user">
-          <ScheduleEventUser {event} {user} />
-        </td>
+        <ScheduleEventUser {event} {user} />
       {/each}
     </tr>
   {/each}
@@ -43,32 +41,30 @@
 
 <style>
   table {
-    font-size: 10px;
+    font-size: 8px;
     border-collapse: collapse;
+    position: relative;
   }
 
   table,
   th,
   td {
-    border: 1px solid gray;
+    border: 1px solid #63666a;
     font-weight: normal;
     padding: 4px;
   }
   .title-td {
     width: 12em;
+    font-size: 1.5em;
   }
   .time {
     writing-mode: vertical-lr;
     transform: rotate(180deg);
+    font-size: 1.5em;
   }
-  td:hover {
-    border-right: 2px solid blue;
-    border-bottom: 2px solid blue;
-    border-top: 2px solid blue;
-    border-left: 2px solid blue;
-  }
-  .event-user {
-    width: 3em;
-    height: 3em;
+
+  .day,
+  .month {
+    font-size: 1.7em;
   }
 </style>
