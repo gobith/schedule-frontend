@@ -1,6 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
   import { fade } from "svelte/transition";
+  import { updateUserEventStatus } from "../../stores/schedule-store";
 
   export let event;
   export let user;
@@ -11,18 +12,40 @@
   const close = () => {
     dispatch("close", {});
   };
+
+  let userStatus = event.userStatus.find((us) => {
+    return us.user === user.id;
+  });
+
+  let selectedStatus = userStatus.status;
+
+  const updateStatus = (status) => {
+    updateUserEventStatus(user, event, status);
+    close();
+  };
 </script>
 
 <div
   in:fade={{ duration: 250 }}
   out:fade={{ duration: 500 }}
   class="background"
-  on:click={close}
 >
   <div in:fade={{ duration: 500 }} out:fade={{ duration: 250 }} class="modal">
     <div>{event.timeString}</div>
     <div>{user.name}</div>
-    <div>{statusPermissions}</div>
+
+    {#each statusPermissions as status}
+      <label>
+        <input
+          type="radio"
+          bind:group={selectedStatus}
+          value={status}
+          on:click={updateStatus(status)}
+        />
+        {status}
+      </label>
+    {/each}
+
     <button on:click={close}>Close</button>
   </div>
 </div>

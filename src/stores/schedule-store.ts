@@ -13,7 +13,7 @@ fetch("/schedule/contents")
 export default schedule;
 
 
-export const modifyUser = (modifiedUser) => {
+export const modifyUser = (modifiedUser: User) => {
 
     fetch("/schedule/user/modify", {
         method: "PUT",
@@ -31,6 +31,38 @@ export const modifyUser = (modifiedUser) => {
             })
         });
 };
+
+
+
+
+
+export const updateUserEventStatus = (user: User , event: Event , status: string) => {
+
+    fetch("/schedule/update-user-event-status", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ user: user.id , event: event.id , status: status })
+    })
+        .then((response) => response.json())
+        .then((userEventStatus) => {
+            schedule.update((oldSchedule) => {
+                let newSchedule = { ...oldSchedule };
+                const eventIndex = newSchedule.events.findIndex((event) => event.id == userEventStatus.event);
+                const newEvent = {...newSchedule.events[eventIndex]};
+                const userStatusIndex = newEvent.userStatus.findIndex((ues) => ues.user === userEventStatus.user);
+                newEvent.userStatus.splice(userStatusIndex , 1 , {user: userEventStatus.user , status: userEventStatus.status});
+                newSchedule.events.splice(eventIndex , 1 , newEvent);
+                return newSchedule
+            }
+        });
+};
+
+
+
+
+
+
+
 
 export const login = (email, password) => {
 
