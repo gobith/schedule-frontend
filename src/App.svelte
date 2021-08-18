@@ -4,13 +4,16 @@
   import Users from "./components/users/Users.svelte";
   import Login from "./components/login/Login.svelte";
   import Logout from "./components/logout/Logout.svelte";
-  import ScheduleTable from "./components/schedule-table/Schedule.svelte";
+  import ScheduleTable from "./components/schedule/Schedule.svelte";
+  import AddCategory from "./components/categories/AddCategory.svelte";
+
 </script>
 
 {#if $scheduleStore}
   <Login />
   <Logout />
   <Welcome user={$scheduleStore.user} />
+  <AddCategory />
   <ScheduleTable
     users={$scheduleStore.users}
     events={$scheduleStore.events}

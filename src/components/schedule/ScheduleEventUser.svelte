@@ -1,22 +1,47 @@
 <script lang="ts">
-  export let user;
+  import { scheduleColor } from "../../scheduleColor";
+  import { createEventDispatcher } from "svelte";
+
   export let event;
+  export let user;
+  export let statusPermissions;
+
+  $: userStatus = event.userStatus.find((us) => {
+    return us.user === user.id;
+  });
+  $: color = scheduleColor(event, userStatus);
+
+  const dispatch = createEventDispatcher();
+
+  const showEventUser = () => {
+    dispatch("message", { event, user, statusPermissions });
+  };
 </script>
 
-<div class="container" />
+<td
+  class="event-user"
+  style="background-color: {color}"
+  on:click={showEventUser}
+>
+  <!-- {#if userStatus}
+    <span>{userStatus.status}</span>
+  {/if} -->
+</td>
 
 <style>
-  .container {
-    margin: 0px;
-    height: 1.4em;
-    border-bottom: 1px solid gray;
-    border-right: 1px solid gray;
-    font-size: 1em;
+  td {
+    border: 1px solid gray;
+    font-weight: normal;
+    padding: 4px;
   }
-  .container:hover {
+  .event-user {
+    width: 3em;
+    height: 3em;
+  }
+  td:hover {
     border-right: 2px solid blue;
     border-bottom: 2px solid blue;
-    border-top: 1px solid blue;
-    border-left: 1px solid blue;
+    border-top: 2px solid blue;
+    border-left: 2px solid blue;
   }
 </style>
