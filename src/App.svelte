@@ -6,6 +6,7 @@
   import Logout from "./components/logout/Logout.svelte";
   import ScheduleTable from "./components/schedule/Schedule.svelte";
   import AddCategory from "./components/categories/AddCategory.svelte";
+  import Categories from "./components/categories/Categories.svelte";
 
 </script>
 
@@ -13,14 +14,16 @@
   <Login />
   <Logout />
   <Welcome user={$scheduleStore.user} />
+  <Categories categories={$scheduleStore.categories} />
   <AddCategory />
+  <Users users={$scheduleStore.users} categories={$scheduleStore.categories} />
   <ScheduleTable
     users={$scheduleStore.users}
     events={$scheduleStore.events}
     categories={$scheduleStore.categories}
     user={$scheduleStore.user}
   />
-  <Users users={$scheduleStore.users} />
+  
 {/if}
 
 <style>

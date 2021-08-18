@@ -1,24 +1,53 @@
 <script lang="ts">
-  import User from "./User.svelte";
+  import { modifyUser } from "../../stores/schedule-store";
+  import CategoryStatus from "./CategoryStatus.svelte";
   export let users;
+  export let categories;
 </script>
 
-<div>
-  <table>
-    <tr
-      ><th>Naam</th><th>Achternaam</th><th>Email</th><th>Telefoon</th><th
-        >Rol</th
-      ><th>Website Rol</th></tr
-    >
+<h1>Users</h1>
 
-    {#each users as user}
-      <User {user} />
+<table>
+  <tr>
+    <th>Naam</th>
+    <th>Achternaam</th>
+    <th>Email</th>
+    <th>Telefoon</th>
+    <th>Rol</th>
+    <th>Website Rol</th>
+    <th>Update</th>
+    {#each categories as category}
+      <th>{category.name}</th>
     {/each}
-  </table>
-</div>
+  </tr>
+  {#each users as user}
+    <tr>
+      <td>{user.name}</td>
+      <td>{user.surname}</td>
+      <td>{user.email}</td>
+      <td>{user.phone}</td>
+      <td>{user.role}</td>
+      <td>{user.websiteRole}</td>
+      <td><button on:click={modifyUser(user)}>Update User</button></td>
+      {#each categories as category}
+        <th><CategoryStatus {user} {category} /></th>
+      {/each}
+    </tr>
+  {/each}
+</table>
 
 <style>
   table {
-    font-size: 8px;
+    font-size: 12px;
+    border-collapse: collapse;
+    position: relative;
+  }
+
+  table,
+  th,
+  td {
+    border: 1px solid #63666a;
+    font-weight: normal;
+    padding: 4px;
   }
 </style>

@@ -45,7 +45,7 @@ export const addCategory = (name: string , description: string) => {
         .then((newCategory) => {
             schedule.update((oldSchedule) => {
                 let newSchedule = { ...oldSchedule };
-                newSchedule.categories.split(1 , newCategory);
+                newSchedule.categories.push(newCategory);
                 return newSchedule;
             })
         });
