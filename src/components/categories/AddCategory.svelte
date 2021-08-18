@@ -1,9 +1,12 @@
 <script lang="ts">
+  import { addCategory } from "../../stores/schedule-store";
+    let name = "";
+    let description = "";
 </script>
 
 <h1>Add Category</h1>
 
-<!-- <div>
+<div>
   <form on:submit|preventDefault={addCategory(name, description)}>
     <label for="name">Naam</label>
     <input name="name" type="text" placeholder="" bind:value={name} />
@@ -15,9 +18,9 @@
       bind:value={description}
     />
 
-    <button type="submit"> log in </button>
+    <button type="submit"> Voeg toe </button>
   </form>
-</div> -->
+</div>
 
 <style>
 </style>

@@ -34,6 +34,27 @@ export const modifyUser = (modifiedUser: User) => {
 
 
 
+export const addCategory = (name: string , description: string) => {
+
+    fetch("/schedule/category/add", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name , description })
+    })
+        .then((response) => response.json())
+        .then((newCategory) => {
+            schedule.update((oldSchedule) => {
+                let newSchedule = { ...oldSchedule };
+                newSchedule.categories.split(1 , newCategory);
+                return newSchedule;
+            })
+        });
+};
+
+
+
+
+
 
 
 export const updateUserEventStatus = (user: User , event: Event , status: string) => {
