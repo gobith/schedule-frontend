@@ -2,8 +2,6 @@
   export let event;
   export let categories;
 
-    console.log(categories);
-
   $: category = categories.find((cat) => {
     return cat.id === event.category;
   });
