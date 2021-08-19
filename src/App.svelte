@@ -7,6 +7,8 @@
   import ScheduleTable from "./components/schedule/Schedule.svelte";
   import AddCategory from "./components/categories/AddCategory.svelte";
   import Categories from "./components/categories/Categories.svelte";
+  import AddEvent from "./components/events/AddEvent.svelte";
+  import Events from "./components/events/Events.svelte";
 
 </script>
 
@@ -17,6 +19,8 @@
   <Categories categories={$scheduleStore.categories} />
   <AddCategory />
   <Users users={$scheduleStore.users} categories={$scheduleStore.categories} />
+  <AddEvent />
+  <Events events={$scheduleStore.events} categories={$scheduleStore.categories}/>
   <ScheduleTable
     users={$scheduleStore.users}
     events={$scheduleStore.events}

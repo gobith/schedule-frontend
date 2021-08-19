@@ -116,6 +116,7 @@ export const logout = () => {
 const eventFor = (event) => {
 
     const dateAndTime = new Date(event.dateAndTime);
+   
     const timeString = `${dateAndTime.getHours().toString().padStart( 2 , '0')}:${dateAndTime.getMinutes().toString().padEnd(2 , '0')}`;
 
     const newEvent = {
@@ -126,7 +127,8 @@ const eventFor = (event) => {
         date: dateAndTime.getDate(),
         hours: dateAndTime.getHours(),
         minutes: dateAndTime.getMinutes() ,
-        timeString: timeString
+        dateString: dateAndTime.toDateString(),
+        timeString: timeString ,
     };
     return newEvent
 }
@@ -191,7 +193,7 @@ interface StatusPermissions {
 const scheduleFor = (scheduleData): Schedule => {
 
     const users: User[] = scheduleData.users;
-    const events: Event[] = scheduleData.events.map((event) => { return eventFor(event) });
+    const events: Event[] = scheduleData.events.map((event) => { return eventFor(event) }).sort((a, b) => {return a.dateAndTime - b.dateAndTime});
     const categories: Category[] = scheduleData.categories;
     const user: User = scheduleData.users.find((usr) => usr.id === scheduleData.userId);
 

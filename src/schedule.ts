@@ -4,7 +4,7 @@ export const categoriesToSchedules = (users, events, categories) => {
   const cat = categories.map((category) => {
     return categorySchedules(category, users, events);
   });
-  console.log(cat);
+  
   return cat;
 };
 

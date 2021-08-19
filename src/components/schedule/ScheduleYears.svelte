@@ -6,7 +6,7 @@
   export let years;
   export let yearIndex;
 
-  console.log(years);
+ 
 
   $: year = years[yearIndex];
   $: scheduleUsers = users.filter((user) => {
