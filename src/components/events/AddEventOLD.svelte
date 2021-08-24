@@ -4,7 +4,6 @@
   export let categories;
   let selectedCategory;
   let description = "";
-  let location = "";
   let nrOfUsers;
 
   let date = new Date();
@@ -21,12 +20,20 @@
     .toString()
     .padStart(2, "0")}`;
 
-
+  const addEvent = () => {
+    console.log({
+      dateString,
+      timeString,
+      category: selectedCategory.id,
+      description,
+      nrOfUsers,
+    });
+  };
 </script>
 
 <h1>Add Event</h1>
 
-<form on:submit|preventDefault={addEvent(dateString , timeString , selectedCategory , description , location , nrOfUsers)}>
+<form on:submit|preventDefault={addEvent}>
   <label for="date">Datum</label>
   <input name="date" type="date" bind:value={dateString} required />
   <label for="time">Tijd</label>
@@ -41,9 +48,6 @@
 
   <label for="description">Beschrijving</label>
   <textarea name="description" bind:value={description} />
-
-  <label for="location">Locatie</label>
-  <textarea name="location" bind:value={location} />
 
   <label for="nrOfUsers">Personen</label>
   <input name="nrOfUsers" type="number" bind:value={nrOfUsers} required />

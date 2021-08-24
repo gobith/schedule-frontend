@@ -52,6 +52,25 @@ export const addCategory = (name: string , description: string) => {
 };
 
 
+export const addEvent = (dateString , timeString , selectedCategory , description , location , nrOfUsers) => {
+
+    fetch("/schedule/event/add", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({dateString , timeString , category: selectedCategory.id , description , location , nrOfUsers })
+    })
+        .then((response) => response.json())
+        .then((newEvent) => {
+            schedule.update((oldSchedule) => {
+                let newSchedule = { ...oldSchedule };
+                let event = eventFor(newEvent);
+                console.log(event);
+                newSchedule.events.push(event);
+                return newSchedule;
+            })
+        });
+};
+
 
 
 
@@ -137,6 +156,7 @@ interface Schedule {
     events: Event[];
     categories: Category[];
     user: User;
+    loggedIn: boolean
 }
 
 interface User {
@@ -196,8 +216,9 @@ const scheduleFor = (scheduleData): Schedule => {
     const events: Event[] = scheduleData.events.map((event) => { return eventFor(event) }).sort((a, b) => {return a.dateAndTime - b.dateAndTime});
     const categories: Category[] = scheduleData.categories;
     const user: User = scheduleData.users.find((usr) => usr.id === scheduleData.userId);
+    const loggedIn: boolean = scheduleData.loggedIn;
 
-    const schedule: Schedule = { users, events, categories , user };
+    const schedule: Schedule = { users, events, categories , user , loggedIn};
     console.log(schedule);
     return schedule
 
