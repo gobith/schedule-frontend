@@ -35,7 +35,7 @@
     {/each}
   </tr>
   <tr>
-    <th class="title-td">Dagdeel</th>
+    <th class="title-td">Tijd</th>
     {#each year.events as event}
       <th class="time">
         {event.timeString}

@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { modifyUser } from "../../stores/schedule-store";
   import CategoryStatus from "./CategoryStatus.svelte";
   export let users;
   export let categories;
@@ -15,7 +14,6 @@
     <th>Telefoon</th>
     <th>Rol</th>
     <th>Website Rol</th>
-    <th>Update</th>
     {#each categories as category}
       <th>{category.name}</th>
     {/each}
@@ -28,7 +26,6 @@
       <td>{user.phone}</td>
       <td>{user.role}</td>
       <td>{user.websiteRole}</td>
-      <td><button on:click={modifyUser(user)}>Update User</button></td>
       {#each categories as category}
         <th><CategoryStatus {user} {category} /></th>
       {/each}

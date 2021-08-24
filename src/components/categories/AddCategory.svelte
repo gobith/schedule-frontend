@@ -10,12 +10,7 @@
   <label for="name">Naam</label>
   <input name="name" type="text" placeholder="" bind:value={name} />
   <label for="description">Beschrijving</label>
-  <input
-    name="description"
-    type="text"
-    placeholder=""
-    bind:value={description}
-  />
+  <textarea name="description" bind:value={description} />
 
   <button type="submit"> Voeg toe </button>
 </form>

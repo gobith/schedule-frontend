@@ -47,5 +47,9 @@ export let categories;
     font-weight: normal;
     padding: 4px;
   }
+
+  tr:hover {
+    background-color: lightblue;
+  }
     
 </style>

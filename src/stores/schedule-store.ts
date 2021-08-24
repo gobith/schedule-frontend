@@ -52,12 +52,12 @@ export const addCategory = (name: string , description: string) => {
 };
 
 
-export const addEvent = (dateString , timeString , selectedCategory , description , location , nrOfUsers) => {
+export const addEvent = (dateString , timeString , selectedCategory , description , location , nrOfUsers , status) => {
 
     fetch("/schedule/event/add", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({dateString , timeString , category: selectedCategory.id , description , location , nrOfUsers })
+        body: JSON.stringify({dateString , timeString , category: selectedCategory.id , description , location , nrOfUsers , status})
     })
         .then((response) => response.json())
         .then((newEvent) => {
