@@ -74,6 +74,28 @@ export const addEvent = (dateString , timeString , selectedCategory , descriptio
 
 
 
+export const addUser = (user) => {
+
+    fetch("/schedule/user/add", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(user)
+    })
+        .then((response) => response.json())
+        .then((newUser) => {
+            schedule.update((oldSchedule) => {
+                let newSchedule = { ...oldSchedule };
+                newSchedule.users.push(newUser);
+                return newSchedule;
+            })
+        });
+};
+
+
+
+
+
+
 
 
 export const updateUserEventStatus = (user: User , event: Event , status: string) => {
