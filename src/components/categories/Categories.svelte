@@ -1,38 +1,19 @@
 <script lang="ts">
+    import AddCategory from "./AddCategory.svelte";
+    import ModifyCategory from "./ModifyCategory.svelte";
+    import CategoryList from "./CategoryList.svelte";
 
-export let categories;
+    export let categories;
 
 </script>
-<h1>Categories</h1>
+<div>
+    <AddCategory {categories} />
+    <!-- <ModifyCategory {categories} /> -->
+    <CategoryList {categories} />
+</div>
 
-<table>
-    <tr>
-      <th>Naam</th>
-      <th>Beschrijving</th>
-      
-    </tr>
-    {#each categories as category}
-      <tr>
-        <td>{category.name}</td>
-        <td>{category.description}</td>
-      </tr>
-    {/each}
-  </table>
 
 
 <style>
-      table {
-    font-size: 12px;
-    border-collapse: collapse;
-    position: relative;
-  }
-
-  table,
-  th,
-  td {
-    border: 1px solid #63666a;
-    font-weight: normal;
-    padding: 4px;
-  }
 
 </style>

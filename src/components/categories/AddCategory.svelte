@@ -1,4 +1,5 @@
 <script lang="ts">
+  export let categories;
   import { addCategory } from "../../stores/schedule-store";
   let name = "";
   let description = "";

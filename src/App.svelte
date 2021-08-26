@@ -5,7 +5,6 @@
   import Login from "./components/login/Login.svelte";
   import Logout from "./components/logout/Logout.svelte";
 
-  import AddCategory from "./components/categories/AddCategory.svelte";
   import Categories from "./components/categories/Categories.svelte";
 
   import AddEvent from "./components/events/AddEvent.svelte";
@@ -23,7 +22,6 @@
     <hr />
     <Welcome {...$scheduleStore} />
     <hr />
-    <AddCategory {...$scheduleStore} />
     <Categories {...$scheduleStore} />
     <hr />
     <AddEvent {...$scheduleStore} />
