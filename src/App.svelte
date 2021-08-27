@@ -7,7 +7,6 @@
 
   import Categories from "./components/categories/Categories.svelte";
 
-  import AddEvent from "./components/events/AddEvent.svelte";
   import Events from "./components/events/Events.svelte";
 
   import AddUser from "./components/users/AddUser.svelte";
@@ -24,7 +23,6 @@
     <hr />
     <Categories {...$scheduleStore} />
     <hr />
-    <AddEvent {...$scheduleStore} />
     <Events {...$scheduleStore} />
     <hr />
     <AddUser {...$scheduleStore} />

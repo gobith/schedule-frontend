@@ -1,55 +1,24 @@
 <script lang="ts">
+  import AddEvent from "./AddEvent.svelte";
+  import ModifyEvent from "./ModifyEvent.svelte";
+  import EventList from "./EventList.svelte";
 
-import EventCategory from "./EventCategory.svelte";
+  export let events;
+  export let categories;
+  let selection = null;
 
-
-export let events;
-export let categories;
+  const updateSelection = (event) => {
+    selection = event.detail;
+  };
 </script>
 
-<h1>Events</h1>
-
-<table>
-    <tr>
-      <th>Datum</th>
-      <th>Tijd</th>
-      <th>Categorie</th>
-      <th>Beschrijving</th>
-      <th>Locatie</th>
-      <th>Personen</th>
-      <th>Status</th>
-    </tr>
-    {#each events as event}
-      <tr>
-        <td>{event.dateString}</td>
-        <td>{event.timeString}</td>
-        <td><EventCategory event={event} categories={categories} /></td>
-        <td>{event.description}</td>
-        <td>{event.location}</td>
-        <td>{event.nrOfUsers}</td>
-        <td>{event.status}</td>
-        
-      </tr>
-    {/each}
-  </table>
+<div>
+  <AddEvent {categories} />
+  <EventList {events} {categories} on:selection={updateSelection} />
+  {#if selection}
+    <ModifyEvent {selection} on:selection={updateSelection} />
+  {/if}
+</div>
 
 <style>
-     table {
-    font-size: 12px;
-    border-collapse: collapse;
-    position: relative;
-  }
-
-  table,
-  th,
-  td {
-    border: 1px solid #63666a;
-    font-weight: normal;
-    padding: 4px;
-  }
-
-  tr:hover {
-    background-color: lightblue;
-  }
-    
 </style>
