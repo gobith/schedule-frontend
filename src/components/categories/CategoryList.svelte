@@ -1,13 +1,19 @@
 <script lang="ts">
-  export let categories;
-  let selected;
+  import { createEventDispatcher } from "svelte";
 
-  const updateSelected = (category) => {
-    if (selected === category) {
-      selected = null;
+  export let categories;
+  let selection;
+
+  const dispatch = createEventDispatcher();
+
+  const updateSelection = (category) => {
+    if (selection === category) {
+      selection = null;
     } else {
-      selected = category;
+      selection = category;
     }
+
+    dispatch("selection", selection);
   };
 </script>
 
@@ -21,8 +27,8 @@
   {#each categories as category}
     <tr
       class="row"
-      class:active={selected === category}
-      on:click={updateSelected(category)}
+      class:active={selection === category}
+      on:click={updateSelection(category)}
     >
       <td>{category.name}</td>
       <td>{category.description}</td>

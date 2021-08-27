@@ -25,12 +25,32 @@ export const modifyUser = (modifiedUser: User) => {
             schedule.update((oldSchedule) => {
                 let newSchedule = { ...oldSchedule };
                 const index = newSchedule.users.findIndex((oldUser) => oldUser.id == newUser.id);
-                const oldUser = newSchedule.users[index];
                 newSchedule.users.splice(index, 1, newUser);
                 return newSchedule;
             })
         });
 };
+
+
+
+export const modifyCategory = (id , name , description) => {
+
+    fetch("/schedule/category/modify", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({id , name , description})
+    })
+        .then((response) => response.json())
+        .then((newCat) => {
+            schedule.update((oldSchedule) => {
+                let newSchedule = { ...oldSchedule };
+                const index = newSchedule.categories.findIndex((oldCat) => oldCat.id == newCat.id);
+                newSchedule.categories.splice(index, 1, newCat);
+                return newSchedule;
+            })
+        });
+};
+
 
 
 
