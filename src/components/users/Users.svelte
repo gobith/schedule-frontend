@@ -2,6 +2,16 @@
   import CategoryStatus from "./CategoryStatus.svelte";
   export let users;
   export let categories;
+
+  let selection;
+
+  const updateSelection = (event) => {
+    if (selection === event) {
+      selection = null;
+    } else {
+      selection = event;
+    }
+  };
 </script>
 
 <h1>Users</h1>
@@ -19,7 +29,11 @@
     {/each}
   </tr>
   {#each users as user}
-    <tr>
+    <tr
+      class="row"
+      class:active={selection === user}
+      on:click={updateSelection(user)}
+    >
       <td>{user.name}</td>
       <td>{user.surname}</td>
       <td>{user.email}</td>
@@ -46,5 +60,14 @@
     border: 1px solid #63666a;
     font-weight: normal;
     padding: 4px;
+  }
+
+  .row:hover {
+    background-color: lightblue;
+    cursor: pointer;
+  }
+
+  .active {
+    background-color: lightblue;
   }
 </style>
