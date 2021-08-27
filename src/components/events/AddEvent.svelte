@@ -1,6 +1,7 @@
 <script lang="ts">
   import { addEvent } from "../../stores/schedule-store";
   import type { Category } from "../../stores/schedule-store";
+  import { toDateString, toTimeString } from "../../date-time";
 
   export let categories: Category[];
   let selectedCategory;
@@ -10,18 +11,9 @@
   let status = "";
 
   let date = new Date();
-  let dateString = `${date.getFullYear()}-${date
-    .getMonth()
-    .toString()
-    .padStart(2, "0")}-${date
-    .getDate()
-    .toString()
-    .padStart(2, "0")}`.toString();
+  let dateString = toDateString(date);
 
-  let timeString = `${date.getHours().toString().padStart(2, "0")}:${date
-    .getMinutes()
-    .toString()
-    .padStart(2, "0")}`;
+  let timeString = toTimeString(date);
 
   const add = () => {
     addEvent(

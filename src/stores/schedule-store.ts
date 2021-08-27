@@ -51,6 +51,42 @@ export const modifyCategory = (id, name, description) => {
     });
 };
 
+export const modifyEvent = (
+  id,
+  dateString,
+  timeString,
+  description,
+  location,
+  nrOfUsers,
+  status
+) => {
+  fetch("/schedule/event/modify", {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      id,
+      dateString,
+      timeString,
+      description,
+      location,
+      nrOfUsers,
+      status,
+    }),
+  })
+    .then((response) => response.json())
+    .then((newEvent) => {
+      schedule.update((oldSchedule) => {
+        let newSchedule = { ...oldSchedule };
+        const index = newSchedule.events.findIndex(
+          (oldEvent) => oldEvent.id == newEvent.id
+        );
+        let event = eventFor(newEvent);
+        newSchedule.events.splice(index, 1, event);
+        return newSchedule;
+      });
+    });
+};
+
 export const addCategory = (name: string, description: string) => {
   fetch("/schedule/category/add", {
     method: "PUT",

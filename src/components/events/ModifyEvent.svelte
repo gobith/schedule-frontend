@@ -1,9 +1,11 @@
 <script lang="ts">
-  import { afterUpdate } from "svelte";
+  import { createEventDispatcher } from "svelte";
+  import { modifyEvent } from "../../stores/schedule-store";
+  import { toDateString, toTimeString } from "../../date-time";
   export let selection;
 
   let id = selection.id;
-  let dateString = selection.dateString;
+  let dateString = toDateString(selection.dateAndTime);
   let timeString = selection.timeString;
   let description = selection.description;
   let location = selection.location;
@@ -12,7 +14,7 @@
 
   $: if (id !== selection.id) {
     id = selection.id;
-    dateString = selection.dateString;
+    dateString = toDateString(selection.dateAndTime);
     timeString = selection.timeString;
     description = selection.description;
     location = selection.location;
@@ -20,8 +22,19 @@
     status = selection.status;
   }
 
+  const dispatch = createEventDispatcher();
+
   const modify = () => {
-    console.log({});
+    modifyEvent(
+      id,
+      dateString,
+      timeString,
+      description,
+      location,
+      nrOfUsers,
+      status
+    );
+    dispatch("selection", null);
   };
 </script>
 
