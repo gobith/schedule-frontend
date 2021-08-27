@@ -12,13 +12,11 @@
   let name = selection.name;
   let description = selection.description;
 
-  afterUpdate(() => {
-    if (id !== selection.id) {
-      id = selection.id;
-      name = selection.name;
-      description = selection.description;
-    }
-  });
+  $: if (id !== selection.id) {
+    id = selection.id;
+    name = selection.name;
+    description = selection.description;
+  }
 
   const modify = () => {
     modifyCategory(id, name, description);

@@ -1,7 +1,8 @@
 <script lang="ts">
   import { addEvent } from "../../stores/schedule-store";
+  import type { Category } from "../../stores/schedule-store";
 
-  export let categories;
+  export let categories: Category[];
   let selectedCategory;
   let description = "";
   let location = "";
@@ -22,12 +23,22 @@
     .toString()
     .padStart(2, "0")}`;
 
-
+  const add = () => {
+    addEvent(
+      dateString,
+      timeString,
+      selectedCategory.id,
+      description,
+      location,
+      nrOfUsers,
+      status
+    );
+  };
 </script>
 
 <h1>Add Event</h1>
 
-<form on:submit|preventDefault={addEvent(dateString , timeString , selectedCategory , description , location , nrOfUsers, status)}>
+<form on:submit|preventDefault={add}>
   <label for="date">Datum</label>
   <input name="date" type="date" bind:value={dateString} required />
   <label for="time">Tijd</label>
@@ -57,9 +68,6 @@
     <option value="finished">Voltooid</option>
     <option value="archived">Gearchiveerd</option>
   </select>
-
-
-
 
   <button type="submit"> Voeg toe </button>
 </form>
