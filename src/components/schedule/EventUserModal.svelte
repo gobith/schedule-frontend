@@ -17,7 +17,11 @@
     return us.user === user.id;
   });
 
-  let selectedStatus = userStatus.status;
+  let selectedStatus = "";
+
+  if (userStatus) {
+    selectedStatus = userStatus.status;
+  }
 
   const updateStatus = (status) => {
     updateUserEventStatus(user, event, status);
