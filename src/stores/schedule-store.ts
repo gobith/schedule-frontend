@@ -10,13 +10,28 @@ fetch("/schedule/contents")
 
 export default schedule;
 
-export const modifyUser = (modifiedUser: User) => {
+export const modifyUser = (
+  id,
+  name,
+  surname,
+  email,
+  phone,
+  role,
+  websiteRole,
+  categoryIdStatus
+) => {
   fetch("/schedule/user/modify", {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      id: modifiedUser.id,
-      name: modifiedUser.name + "1",
+      id,
+      name,
+      surname,
+      email,
+      phone,
+      role,
+      websiteRole,
+      categoryIdStatus,
     }),
   })
     .then((response) => response.json())

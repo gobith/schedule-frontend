@@ -41,7 +41,10 @@
   }
 
   const modify = () => {
-    console.log({
+    let categoryIdStatus = categoryStatus.map((catStat) => {
+      return { category: catStat.category.id, status: catStat.status };
+    });
+    modifyUser(
       id,
       name,
       surname,
@@ -49,8 +52,8 @@
       phone,
       role,
       websiteRole,
-      categoryStatus,
-    });
+      categoryIdStatus
+    );
     dispatch("selection", null);
   };
 </script>
