@@ -20,13 +20,15 @@
     <hr />
     <Welcome {...$scheduleStore} />
     <hr />
-    <Categories {...$scheduleStore} />
-    <hr />
-    <Events {...$scheduleStore} />
-    <hr />
-    <Users {...$scheduleStore} />
-    <hr />
     <Schedule {...$scheduleStore} />
+    {#if $scheduleStore.isAdmin}
+      <hr />
+      <Categories {...$scheduleStore} />
+      <hr />
+      <Events {...$scheduleStore} />
+      <hr />
+      <Users {...$scheduleStore} />
+    {/if}
   {:else}
     <Login />
   {/if}

@@ -253,6 +253,7 @@ interface Schedule {
   categories: Category[];
   user: User;
   loggedIn: boolean;
+  isAdmin: boolean;
 }
 
 interface User {
@@ -322,9 +323,18 @@ const scheduleFor = (scheduleData): Schedule => {
   const user: User = scheduleData.users.find(
     (usr) => usr.id === scheduleData.userId
   );
-  const loggedIn: boolean = scheduleData.loggedIn;
 
-  const schedule: Schedule = { users, events, categories, user, loggedIn };
+  const loggedIn: boolean = scheduleData.loggedIn;
+  const isAdmin: boolean = scheduleData.isAdmin;
+
+  const schedule: Schedule = {
+    users,
+    events,
+    categories,
+    user,
+    loggedIn,
+    isAdmin,
+  };
   console.log(schedule);
   return schedule;
 };
