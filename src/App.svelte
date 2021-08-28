@@ -9,7 +9,6 @@
 
   import Events from "./components/events/Events.svelte";
 
-  import AddUser from "./components/users/AddUser.svelte";
   import Users from "./components/users/Users.svelte";
 
   import Schedule from "./components/schedule/Schedule.svelte";
@@ -25,7 +24,6 @@
     <hr />
     <Events {...$scheduleStore} />
     <hr />
-    <AddUser {...$scheduleStore} />
     <Users {...$scheduleStore} />
     <hr />
     <Schedule {...$scheduleStore} />

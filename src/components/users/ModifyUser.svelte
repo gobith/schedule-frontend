@@ -1,37 +1,63 @@
 <script lang="ts">
-  import { addUser } from "../../stores/schedule-store";
+  import { createEventDispatcher } from "svelte";
+  import { modifyUser } from "../../stores/schedule-store";
 
   export let categories;
+  export let selection;
 
-  let name = "";
-  let surname = "";
-  let email = "";
-  let phone = "";
-  let role = "";
-  let websiteRole = "";
-  let categoryStatus = categories.map((category) => {
-    return { category, status: "" };
-  });
+  const dispatch = createEventDispatcher();
 
-  const add = () => {
-    let categoryIdStatus = categoryStatus.map((catStat) => {
-      return { category: catStat.category.id, status: catStat.status };
+  const createCategoryStatus = () => {
+    return categories.map((category) => {
+      let status = "";
+      const selectionStatus = selection.categoryStatus.find((catStat) => {
+        return catStat.category === category.id;
+      });
+      if (selectionStatus) {
+        status = selectionStatus.status;
+      }
+      return { category, status };
     });
-    addUser({
+  };
+
+  let id = selection.id;
+  let name = selection.name;
+  let surname = selection.surname;
+  let email = selection.email;
+  let phone = selection.phone;
+  let role = selection.role;
+  let websiteRole = selection.websiteRole;
+  let categoryStatus = createCategoryStatus();
+
+  $: if (id !== selection.id) {
+    id = selection.id;
+    name = selection.name;
+    surname = selection.surname;
+    email = selection.email;
+    phone = selection.phone;
+    role = selection.role;
+    websiteRole = selection.websiteRole;
+    categoryStatus = createCategoryStatus();
+  }
+
+  const modify = () => {
+    console.log({
+      id,
       name,
       surname,
       email,
       phone,
       role,
       websiteRole,
-      categoryIdStatus,
+      categoryStatus,
     });
+    dispatch("selection", null);
   };
 </script>
 
-<h1>Add User</h1>
+<h1>Modify User</h1>
 
-<form on:submit|preventDefault={add}>
+<form on:submit|preventDefault={modify}>
   <label for="name">Naam</label>
   <input name="name" type="text" bind:value={name} required />
   <label for="surname">Achternaam</label>
@@ -94,7 +120,7 @@
     {/each}
   </div>
 
-  <button type="submit"> Voeg toe </button>
+  <button type="submit"> Aanpassen </button>
 </form>
 
 <style>

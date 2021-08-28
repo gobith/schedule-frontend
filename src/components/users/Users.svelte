@@ -1,73 +1,24 @@
 <script lang="ts">
-  import CategoryStatus from "./CategoryStatus.svelte";
+  import AddUser from "./AddUser.svelte";
+  import ModifyUser from "./ModifyUser.svelte";
+  import UserList from "./UserList.svelte";
+
   export let users;
   export let categories;
-
-  let selection;
+  let selection = null;
 
   const updateSelection = (event) => {
-    if (selection === event) {
-      selection = null;
-    } else {
-      selection = event;
-    }
+    selection = event.detail;
   };
 </script>
 
-<h1>Users</h1>
-
-<table>
-  <tr>
-    <th>Naam</th>
-    <th>Achternaam</th>
-    <th>Email</th>
-    <th>Telefoon</th>
-    <th>Rol</th>
-    <th>Website Rol</th>
-    {#each categories as category}
-      <th>{category.name}</th>
-    {/each}
-  </tr>
-  {#each users as user}
-    <tr
-      class="row"
-      class:active={selection === user}
-      on:click={updateSelection(user)}
-    >
-      <td>{user.name}</td>
-      <td>{user.surname}</td>
-      <td>{user.email}</td>
-      <td>{user.phone}</td>
-      <td>{user.role}</td>
-      <td>{user.websiteRole}</td>
-      {#each categories as category}
-        <th><CategoryStatus {user} {category} /></th>
-      {/each}
-    </tr>
-  {/each}
-</table>
+<div>
+  <AddUser {categories} />
+  <UserList {users} {categories} on:selection={updateSelection} />
+  {#if selection}
+    <ModifyUser {categories} {selection} on:selection={updateSelection} />
+  {/if}
+</div>
 
 <style>
-  table {
-    font-size: 12px;
-    border-collapse: collapse;
-    position: relative;
-  }
-
-  table,
-  th,
-  td {
-    border: 1px solid #63666a;
-    font-weight: normal;
-    padding: 4px;
-  }
-
-  .row:hover {
-    background-color: lightblue;
-    cursor: pointer;
-  }
-
-  .active {
-    background-color: lightblue;
-  }
 </style>
