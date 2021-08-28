@@ -263,7 +263,6 @@ interface User {
   phone: string;
   role: string;
   websiteRole: string;
-  showInSchedule: boolean;
   categoryStatus: CategoryStatus[];
 }
 

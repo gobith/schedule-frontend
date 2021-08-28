@@ -4,7 +4,7 @@ export const categoriesToSchedules = (users, events, categories) => {
   const cat = categories.map((category) => {
     return categorySchedules(category, users, events);
   });
-  
+
   return cat;
 };
 
@@ -14,7 +14,18 @@ const categorySchedules = (category, users, events) => {
   });
 
   const scheduleUsers = users.filter((user) => {
-    return user.showInSchedule;
+    if (user.role === "archive") {
+      return false;
+    }
+
+    const catStatus = user.categoryStatus.find((catStat) => {
+      return catStat.category === category.id;
+    });
+    if (catStatus) {
+      return catStatus.status !== "none";
+    } else {
+      return false;
+    }
   });
   const years = scheduleYears(scheduleUsers, categoryEvents);
 
