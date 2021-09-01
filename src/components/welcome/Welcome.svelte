@@ -1,6 +1,8 @@
 <script lang="ts">
-  export let user;
-  export let events;
+  import scheduleStore from "../../stores/schedule-store";
+
+  let user = $scheduleStore.user;
+  let events = $scheduleStore.events;
 
   const showEvent = (event) => {
     const userStatus = event.userStatus.find((us) => {

@@ -1,10 +1,11 @@
 <script lang="ts">
+  import scheduleStore from "../../stores/schedule-store";
   import AddEvent from "./AddEvent.svelte";
   import ModifyEvent from "./ModifyEvent.svelte";
   import EventList from "./EventList.svelte";
 
-  export let events;
-  export let categories;
+  let events = $scheduleStore.events;
+  let categories = $scheduleStore.categories;
   let selection = null;
 
   const updateSelection = (event) => {

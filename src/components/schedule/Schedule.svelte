@@ -1,8 +1,9 @@
 <script lang="ts">
-  export let users;
-  export let events;
-  export let categories;
-  export let user;
+  import scheduleStore from "../../stores/schedule-store";
+  let users = $scheduleStore.users;
+  let events = $scheduleStore.events;
+  let categories = $scheduleStore.categories;
+  let user = $scheduleStore.user;
 
   import { categoriesToSchedules } from "../../schedule";
   import ScheduleYears from "./ScheduleYears.svelte";

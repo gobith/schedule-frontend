@@ -1,4 +1,8 @@
 <script lang="ts">
+  import Router from "svelte-spa-router";
+  import { wrap } from "svelte-spa-router/wrap";
+  import { push } from "svelte-spa-router";
+
   import scheduleStore from "./stores/schedule-store";
   import Welcome from "./components/welcome/Welcome.svelte";
 
@@ -12,9 +16,79 @@
   import Users from "./components/users/Users.svelte";
 
   import Schedule from "./components/schedule/Schedule.svelte";
+  import CategoryList from "./components/categories/CategoryList.svelte";
+
+  const isLoggedIn = () => {
+    if ($scheduleStore) {
+      return $scheduleStore.loggedIn;
+    } else {
+      return false;
+    }
+  };
+
+  const routes = {
+    "/welcome": wrap({
+      component: Welcome,
+      props: {},
+      conditions: [
+        () => {
+          return isLoggedIn();
+        },
+      ],
+    }),
+    "/schedules": wrap({
+      component: Schedule,
+      props: {},
+      conditions: [
+        () => {
+          return isLoggedIn();
+        },
+      ],
+    }),
+    "/users": wrap({
+      component: Users,
+      props: {},
+      conditions: [
+        () => {
+          return isLoggedIn();
+        },
+      ],
+    }),
+    "/categories": wrap({
+      component: Categories,
+      props: {},
+      conditions: [
+        () => {
+          return isLoggedIn();
+        },
+      ],
+    }),
+    "/events": wrap({
+      component: Events,
+      props: {},
+      conditions: [
+        () => {
+          return isLoggedIn();
+        },
+      ],
+    }),
+  };
 </script>
 
-{#if $scheduleStore}
+<ul>
+  <li>
+    <a href="/">Home</a>
+    <a href="#/welcome">Welcome</a>
+    <a href="#/schedules">Roosters</a>
+    <a href="#/users">Users</a>
+    <a href="#/categories">Categories</a>
+    <a href="#/events">Events</a>
+  </li>
+</ul>
+
+<Router {routes} />
+
+<!-- {#if $scheduleStore}
   {#if $scheduleStore.loggedIn}
     <Logout />
     <hr />
@@ -32,8 +106,7 @@
   {:else}
     <Login />
   {/if}
-{/if}
-
+{/if} -->
 <style>
   :global(*) {
     margin: 0px;
