@@ -23,6 +23,13 @@
   import Schedule from "./components/schedule/Schedule.svelte";
   import CategoryList from "./components/categories/CategoryList.svelte";
 
+  const arrowClick = (event) => {
+    
+    let arrowParent = event.target.parentElement.parentElement.parentElement;
+    console.log(arrowParent);
+    arrowParent.classList.toggle("showMenu");
+  }
+
   const isLoggedIn = () => {
     if ($scheduleStore) {
       return $scheduleStore.loggedIn;
@@ -91,23 +98,34 @@
   </li>
 </ul> -->
 
-<div class="sidebar close">
+<div class="sidebar">
   <div class="logo-details">
     <i><IconifyIcon icon={runIcon} /></i>
     <span class="logo_name">AC Waterland</span>
   </div>
   <ul class="nav-links">
     <li>
+      <a href="#/welcome">
+        <i><IconifyIcon icon={gridIcon} /></i>
+        <span class="link_name">Welcome</span>
+      </a>
+      <ul class="sub-menu blank">
+        <li>
+          <a href="#/welcome" class="link_name">Welcome</a>
+        </li>
+      </ul>
+    </li>
+    <li>
       <div class="icon-link">
         <a href="#/schedules">
           <i><IconifyIcon icon={gridIcon} /></i>
           <span class="link_name">Rooster</span>
         </a>
-        <i><IconifyIcon icon={chevronDownIcon} /></i>
+        <i class="arrow" on:click={arrowClick}><IconifyIcon icon={chevronDownIcon} /></i>
       </div>
       <ul class="sub-menu">
         <li>
-          <a class="link_name" href="#" >Rooster</a>
+          <a class="link_name" href="#">Rooster</a>
         </li>
         <li>
           <a href="#">Oud Papier</a>
@@ -188,7 +206,12 @@
   .sidebar .nav-links {
     height: 100%;
     padding: 0px;
-    padding-top: 30px;
+    padding-top: 30px 0 150px 0;
+    overflow: auto;
+  }
+
+  .sidebar .nav-links::-webkit-scrollbar{
+    display: none;
   }
 
   .sidebar .nav-links li {
@@ -214,6 +237,12 @@
     line-height: 50px;
     color: #fff;
     font-size: 20px;
+    transition: all 0.3s ease;
+  }
+
+  .sidebar .nav-links li.showMenu i.arrow {
+    transform: rotate(180deg);
+
   }
 
   .sidebar .nav-links li a {
@@ -232,7 +261,13 @@
     padding: 6px 6px 14px 80px;
     margin-top: -10px;
     background: #1d1b31;
-    /* display: none; */
+    display: none;
+  }
+
+  
+  .sidebar .nav-links li.showMenu .sub-menu {
+    display: block;
+
   }
 
   .sidebar .nav-links li .sub-menu a {
@@ -251,16 +286,38 @@
   .sidebar.close .nav-links li .sub-menu {
     position: absolute;
     left: 100%;
-    top: 0;
+    top: -10px;
     margin-top: 0;
     padding: 10px 20px;
     border-radius: 0 6px 6px 0;
+    transition: all 0.4s ease;
+    opacity: 0;
+    pointer-events: none;
   }
 
+  .sidebar.close .nav-links li:hover .sub-menu {
+    top: 0;
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .sidebar .nav-links li .sub-menu .link_name {
+    display: none;
+  }
   .sidebar.close .nav-links li .sub-menu .link_name {
     font-size: 18px;
     opacity: 1;
+    display: block;
+  }
 
+  .sidebar .nav-links li .sub-menu.blank {
+    opacity: 1;
+    pointer-events: auto;
+    padding: 3px 20px 6px 16px;
+  }
+
+  .sidebar .nav-links li:hover .sub-menu.blank {
+    top: 50%;
+    transform: translateY(-50%);
   }
 
 </style>
