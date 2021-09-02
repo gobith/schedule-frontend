@@ -1,4 +1,7 @@
 <script lang="ts">
+  import IconifyIcon from "@iconify/svelte";
+  import runIcon from "@iconify-icons/bx/bx-run";
+
   import Router from "svelte-spa-router";
   import { wrap } from "svelte-spa-router/wrap";
   import { push } from "svelte-spa-router";
@@ -75,7 +78,7 @@
   };
 </script>
 
-<ul>
+<!-- <ul>
   <li>
     <a href="/">Home</a>
     <a href="#/welcome">Welcome</a>
@@ -84,7 +87,14 @@
     <a href="#/categories">Categories</a>
     <a href="#/events">Events</a>
   </li>
-</ul>
+</ul> -->
+
+<div class="sidebar">
+  <div class="logo-details">
+    <i><IconifyIcon icon={runIcon} /></i>
+    <span class="logo_name">ACWaterland</span>
+  </div>
+</div>
 
 <Router {routes} />
 
@@ -108,9 +118,14 @@
   {/if}
 {/if} -->
 <style>
-  :global(*) {
+  :global(* body) {
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
   }
+
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+  
 </style>
