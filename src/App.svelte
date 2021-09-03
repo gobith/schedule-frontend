@@ -34,7 +34,7 @@
 
   const sidebarClick = (event) => {
     console.log(event);
-    closeSidebar = !closeSidebar
+    closeSidebar = !closeSidebar;
   };
   const isLoggedIn = () => {
     if ($scheduleStore) {
@@ -107,7 +107,7 @@
 <div class="sidebar" class:close={closeSidebar}>
   <div class="logo-details">
     <i><IconifyIcon icon={runIcon} /></i>
-    <span class="logo_name">AC Waterland</span>
+    <span class="logo_name">ACWaterland</span>
   </div>
   <ul class="nav-links">
     <li>
@@ -195,6 +195,12 @@
     height: 100%;
     width: 260px;
     background: #11101d;
+    z-index: 100;
+    transition: all 0.5s ease;
+  }
+
+  .sidebar.close {
+    width: 78px;
   }
 
   .sidebar .logo-details {
@@ -211,12 +217,21 @@
     min-width: 78px;
     text-align: center;
     line-height: 50px;
+    cursor: pointer;
   }
 
   .sidebar .logo-details .logo_name {
     font-size: 22px;
     color: #fff;
     font-weight: 600;
+    transition: 0.3s ease;
+    transition-delay: 0.1s;
+  }
+
+  .sidebar.close .logo-details .logo_name {
+    transition-delay: 0s;
+    opacity: 0;
+    pointer-events: none;
   }
 
   .sidebar .nav-links {
@@ -224,6 +239,11 @@
     padding: 0px;
     padding-top: 30px 0 150px 0;
     overflow: auto;
+  }
+
+  .sidebar .nav-links {
+    overflow: visible;
+
   }
 
   .sidebar .nav-links::-webkit-scrollbar {
@@ -253,6 +273,7 @@
     line-height: 50px;
     color: #fff;
     font-size: 20px;
+    cursor: pointer;
     transition: all 0.3s ease;
   }
 
@@ -316,6 +337,11 @@
   .sidebar .nav-links li .sub-menu .link_name {
     display: none;
   }
+
+  .sidebar.close .nav-links li .sub-menu .link_name {
+    display: none;
+  }
+
   .sidebar.close .nav-links li .sub-menu .link_name {
     font-size: 18px;
     opacity: 1;
@@ -345,9 +371,7 @@
   .sidebar.close ~ .home-section {
     left: 78px;
     width: calc(100% - 78px);
-
   }
-
 
   .home-section .home-content {
     height: 60px;
