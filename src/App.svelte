@@ -406,6 +406,7 @@
 
   .home-section .home-content .bx-menu {
     margin: 0 15px;
+    cursor: pointer;
   }
 
   .home-section .home-content .text {
