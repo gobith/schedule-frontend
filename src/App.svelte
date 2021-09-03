@@ -9,6 +9,8 @@
   import { wrap } from "svelte-spa-router/wrap";
   import { push } from "svelte-spa-router";
 
+  import { onMount } from "svelte";
+
   import scheduleStore from "./stores/schedule-store";
   import Welcome from "./components/welcome/Welcome.svelte";
 
@@ -22,9 +24,11 @@
   import Users from "./components/users/Users.svelte";
 
   import Schedule from "./components/schedule/Schedule.svelte";
-  import CategoryList from "./components/categories/CategoryList.svelte";
+
 
   let closeSidebar = true;
+
+  $: loggedIn = false;
 
   const arrowClick = (event) => {
     let arrowParent = event.target.parentElement.parentElement.parentElement;
@@ -36,13 +40,7 @@
     console.log(event);
     closeSidebar = !closeSidebar;
   };
-  const isLoggedIn = () => {
-    if ($scheduleStore) {
-      return $scheduleStore.loggedIn;
-    } else {
-      return false;
-    }
-  };
+  
 
   const routes = {
     "/welcome": wrap({
@@ -50,7 +48,7 @@
       props: {},
       conditions: [
         () => {
-          return isLoggedIn();
+          return loggedIn;
         },
       ],
     }),
@@ -59,7 +57,7 @@
       props: {},
       conditions: [
         () => {
-          return isLoggedIn();
+          return loggedIn;
         },
       ],
     }),
@@ -68,7 +66,7 @@
       props: {},
       conditions: [
         () => {
-          return isLoggedIn();
+          return loggedIn;
         },
       ],
     }),
@@ -77,7 +75,7 @@
       props: {},
       conditions: [
         () => {
-          return isLoggedIn();
+          return loggedIn;
         },
       ],
     }),
@@ -86,23 +84,22 @@
       props: {},
       conditions: [
         () => {
-          return isLoggedIn();
+          return loggedIn;
         },
       ],
     }),
   };
-</script>
 
-<!-- <ul>
-  <li>
-    <a href="/">Home</a>
-    <a href="#/welcome">Welcome</a>
-    <a href="#/schedules">Roosters</a>
-    <a href="#/users">Users</a>
-    <a href="#/categories">Categories</a>
-    <a href="#/events">Events</a>
-  </li>
-</ul> -->
+
+  console.log(routes);
+
+  const unsubscribe = scheduleStore.subscribe((scheduleObject) => {
+    if (!scheduleObject) {return}; 
+    loggedIn = scheduleObject.loggedIn;
+		console.log(loggedIn)
+	});
+
+</script>
 
 <div class="sidebar" class:close={closeSidebar}>
   <div class="logo-details">
@@ -150,34 +147,13 @@
 </div>
 <section class="home-section">
   <div class="home-content">
-    <i class="bx-menu" on:click={sidebarClick}
-      ><IconifyIcon icon={menuIcon} /></i
-    >
+    <i class="bx-menu" on:click={sidebarClick}><IconifyIcon icon={menuIcon} /></i>
     <span class="text">Drop Down Sidebar</span>
   </div>
+  <Router {routes} />
 </section>
 
-<Router {routes} />
 
-<!-- {#if $scheduleStore}
-  {#if $scheduleStore.loggedIn}
-    <Logout />
-    <hr />
-    <Welcome {...$scheduleStore} />
-    <hr />
-    <Schedule {...$scheduleStore} />
-    {#if $scheduleStore.isAdmin}
-      <hr />
-      <Categories {...$scheduleStore} />
-      <hr />
-      <Events {...$scheduleStore} />
-      <hr />
-      <Users {...$scheduleStore} />
-    {/if}
-  {:else}
-    <Login />
-  {/if}
-{/if} -->
 <style>
   @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
 
