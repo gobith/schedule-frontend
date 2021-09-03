@@ -107,7 +107,7 @@
 <div class="sidebar" class:close={closeSidebar}>
   <div class="logo-details">
     <i><IconifyIcon icon={runIcon} /></i>
-    <span class="logo_name">ACWaterland</span>
+    <span class="logo_name">AC Waterland</span>
   </div>
   <ul class="nav-links">
     <li>
@@ -226,6 +226,7 @@
     font-weight: 600;
     transition: 0.3s ease;
     transition-delay: 0.1s;
+    white-space: nowrap;
   }
 
   .sidebar.close .logo-details .logo_name {
@@ -241,8 +242,8 @@
     overflow: auto;
   }
 
-  .sidebar .nav-links {
-    overflow: visible;
+  .sidebar.close .nav-links {
+    overflow: visible
 
   }
 
@@ -265,6 +266,10 @@
     align-items: center;
     justify-content: space-between;
   }
+
+  .sidebar.close .nav-links li .icon-link {
+    display: block;
+  }
   .sidebar .nav-links li i {
     display: inline-block;
     height: 50px;
@@ -281,6 +286,10 @@
     transform: rotate(180deg);
   }
 
+  .sidebar.close .nav-links i.arrow {
+    display: none;
+  }
+
   .sidebar .nav-links li a {
     display: flex;
     align-items: center;
@@ -291,6 +300,11 @@
     font-size: 18px;
     font-weight: 400;
     color: #fff;
+  }
+
+  .sidebar.close .nav-links li a .link_name {
+    opacity: 0;
+    pointer-events: none;
   }
 
   .sidebar .nav-links li .sub-menu {
@@ -324,15 +338,17 @@
     margin-top: 0;
     padding: 10px 20px;
     border-radius: 0 6px 6px 0;
-    transition: all 0.4s ease;
     opacity: 0;
+    display: block;
     pointer-events: none;
+    transition: 0s;
   }
 
   .sidebar.close .nav-links li:hover .sub-menu {
     top: 0;
     opacity: 1;
     pointer-events: auto;
+    transition: all 0.4s ease;
   }
   .sidebar .nav-links li .sub-menu .link_name {
     display: none;
@@ -352,6 +368,9 @@
     opacity: 1;
     pointer-events: auto;
     padding: 3px 20px 6px 16px;
+    opacity: 0;
+    pointer-events: none;
+    
   }
 
   .sidebar .nav-links li:hover .sub-menu.blank {
