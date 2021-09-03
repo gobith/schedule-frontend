@@ -3,6 +3,7 @@
   import runIcon from "@iconify-icons/bx/bx-run";
   import gridIcon from "@iconify-icons/bx/bx-grid-alt";
   import chevronDownIcon from "@iconify-icons/bx/bx-chevron-down";
+  import menuIcon from "@iconify-icons/bx/bx-menu";
 
   import Router from "svelte-spa-router";
   import { wrap } from "svelte-spa-router/wrap";
@@ -23,13 +24,18 @@
   import Schedule from "./components/schedule/Schedule.svelte";
   import CategoryList from "./components/categories/CategoryList.svelte";
 
+  let closeSidebar = true;
+
   const arrowClick = (event) => {
-    
     let arrowParent = event.target.parentElement.parentElement.parentElement;
     console.log(arrowParent);
     arrowParent.classList.toggle("showMenu");
-  }
+  };
 
+  const sidebarClick = (event) => {
+    console.log(event);
+    closeSidebar = !closeSidebar
+  };
   const isLoggedIn = () => {
     if ($scheduleStore) {
       return $scheduleStore.loggedIn;
@@ -98,7 +104,7 @@
   </li>
 </ul> -->
 
-<div class="sidebar">
+<div class="sidebar" class:close={closeSidebar}>
   <div class="logo-details">
     <i><IconifyIcon icon={runIcon} /></i>
     <span class="logo_name">AC Waterland</span>
@@ -121,7 +127,9 @@
           <i><IconifyIcon icon={gridIcon} /></i>
           <span class="link_name">Rooster</span>
         </a>
-        <i class="arrow" on:click={arrowClick}><IconifyIcon icon={chevronDownIcon} /></i>
+        <i class="arrow" on:click={arrowClick}
+          ><IconifyIcon icon={chevronDownIcon} /></i
+        >
       </div>
       <ul class="sub-menu">
         <li>
@@ -140,6 +148,14 @@
     </li>
   </ul>
 </div>
+<section class="home-section">
+  <div class="home-content">
+    <i class="bx-menu" on:click={sidebarClick}
+      ><IconifyIcon icon={menuIcon} /></i
+    >
+    <span class="text">Drop Down Sidebar</span>
+  </div>
+</section>
 
 <Router {routes} />
 
@@ -210,7 +226,7 @@
     overflow: auto;
   }
 
-  .sidebar .nav-links::-webkit-scrollbar{
+  .sidebar .nav-links::-webkit-scrollbar {
     display: none;
   }
 
@@ -242,7 +258,6 @@
 
   .sidebar .nav-links li.showMenu i.arrow {
     transform: rotate(180deg);
-
   }
 
   .sidebar .nav-links li a {
@@ -264,10 +279,8 @@
     display: none;
   }
 
-  
   .sidebar .nav-links li.showMenu .sub-menu {
     display: block;
-
   }
 
   .sidebar .nav-links li .sub-menu a {
@@ -320,4 +333,40 @@
     transform: translateY(-50%);
   }
 
+  .home-section {
+    position: relative;
+    background: #e4e9f7;
+    height: 100vh;
+    left: 260px;
+    width: calc(100% - 260px);
+    transition: all 0.5s ease;
+  }
+
+  .sidebar.close ~ .home-section {
+    left: 78px;
+    width: calc(100% - 78px);
+
+  }
+
+
+  .home-section .home-content {
+    height: 60px;
+    display: flex;
+    align-items: center;
+  }
+
+  .home-section .home-content .bx-menu,
+  .home-section .home-content .text {
+    color: #11101d;
+    font-size: 35px;
+  }
+
+  .home-section .home-content .bx-menu {
+    margin: 0 15px;
+  }
+
+  .home-section .home-content .text {
+    font-size: 26px;
+    font-weight: 600;
+  }
 </style>
