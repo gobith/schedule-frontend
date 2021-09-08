@@ -1,6 +1,10 @@
 <script lang="ts">
+
+  import Routes from "./routes";
+
   import IconifyIcon from "@iconify/svelte";
   import runIcon from "@iconify-icons/bx/bx-run";
+  import welcomeIcon from "@iconify-icons/bx/bx-calendar-check";
   import gridIcon from "@iconify-icons/bx/bx-grid-alt";
   import chevronDownIcon from "@iconify-icons/bx/bx-chevron-down";
   import menuIcon from "@iconify-icons/bx/bx-menu";
@@ -8,8 +12,6 @@
   import Router from "svelte-spa-router";
   import { wrap } from "svelte-spa-router/wrap";
   import { push } from "svelte-spa-router";
-
-  import { onMount } from "svelte";
 
   import scheduleStore from "./stores/schedule-store";
   import Welcome from "./components/welcome/Welcome.svelte";
@@ -24,6 +26,9 @@
   import Users from "./components/users/Users.svelte";
 
   import Schedule from "./components/schedule/Schedule.svelte";
+
+
+
 
 
   let closeSidebar = true;
@@ -41,6 +46,7 @@
     closeSidebar = !closeSidebar;
   };
   
+ 
 
   const routes = {
     "/welcome": wrap({
@@ -109,7 +115,7 @@
   <ul class="nav-links">
     <li>
       <a href="#/welcome">
-        <i><IconifyIcon icon={gridIcon} /></i>
+        <i><IconifyIcon icon={welcomeIcon} /></i>
         <span class="link_name">Welcome</span>
       </a>
       <ul class="sub-menu blank">
