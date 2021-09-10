@@ -13,6 +13,9 @@
   import { push } from "svelte-spa-router";
 
   import scheduleStore from "./stores/schedule-store";
+
+  import NavBarItem from "./components/navbar/NavBarItem.svelte";
+
   import Welcome from "./components/welcome/Welcome.svelte";
 
   import Login from "./components/login/Login.svelte";
@@ -110,7 +113,7 @@
   };
 
   const isLoggedIn = () => {
-    return loggedIn
+    return loggedIn;
   };
 
   const arrowClick = (event) => {
@@ -130,12 +133,12 @@
     }
     loggedIn = scheduleObject.loggedIn;
     navbar = updatedNavbar(scheduleObject);
-    if (!loggedIn) {push("#/login")} else {push("#/welcome")}
-
-    
+    if (!loggedIn) {
+      push("#/login");
+    } else {
+      push("#/welcome");
+    }
   });
-
-  
 </script>
 
 <div class="sidebar" class:close={closeSidebar}>
@@ -144,17 +147,11 @@
     <span class="logo_name">AC Waterland</span>
   </div>
   <ul class="nav-links">
-    <li>
-      <a href="#/welcome">
-        <i><IconifyIcon icon={welcomeIcon} /></i>
-        <span class="link_name">Welcome</span>
-      </a>
-      <ul class="sub-menu blank">
-        <li>
-          <a href="#/welcome" class="link_name">Welcome</a>
-        </li>
-      </ul>
-    </li>
+    
+    {#each navbar as navbarItem}
+      <NavBarItem {navbarItem} />
+    {/each}
+
     <li>
       <div class="icon-link">
         <a href="#/schedules">
@@ -189,7 +186,7 @@
     >
     <span class="text">Drop Down Sidebar</span>
     {#if loggedIn}
-    <Logout />
+      <Logout />
     {/if}
   </div>
   <Router

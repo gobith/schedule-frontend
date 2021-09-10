@@ -4,6 +4,9 @@
   let user = $scheduleStore.user;
   let events = $scheduleStore.events;
 
+
+  console.log("Welcome");
+
   const showEvent = (event) => {
     const userStatus = event.userStatus.find((us) => {
       return us.user === user.id;
