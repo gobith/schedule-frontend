@@ -5,8 +5,6 @@
   let events = $scheduleStore.events;
 
 
-  console.log("Welcome");
-
   const showEvent = (event) => {
     const userStatus = event.userStatus.find((us) => {
       return us.user === user.id;
@@ -24,7 +22,6 @@
   });
 </script>
 
-<h1>Welcome</h1>
 {#if user}
   <div>Hallo {user.name}</div>
 

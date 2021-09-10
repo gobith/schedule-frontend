@@ -27,7 +27,7 @@ const ensureLogin = (scheduleStore, navbar) => {
 
 const ensureWelcome = (scheduleStore, navbar) => {
   if(!scheduleStore.loggedIn) {return};
-  const navbarItem = { route: "#/welcome", title: "Welcome", icon: welcomeIcon };
+  const navbarItem = { route: "#/welcome", title: "Algemeen", icon: welcomeIcon };
   navbar.push(navbarItem);
 }
 
