@@ -1,6 +1,7 @@
 <script lang="ts">
+  import { updatedRoutes } from "./routes";
 
-  import Routes from "./routes";
+  import { afterUpdate } from "svelte";
 
   import IconifyIcon from "@iconify/svelte";
   import runIcon from "@iconify-icons/bx/bx-run";
@@ -27,13 +28,93 @@
 
   import Schedule from "./components/schedule/Schedule.svelte";
 
-
-
-
+  const routes = {
+    "/login": wrap({
+      component: Login,
+      props: {},
+      conditions: [
+        () => {
+          return !isLoggedIn();
+        },
+      ],
+    }),
+    "/welcome": wrap({
+      component: Welcome,
+      props: {},
+      conditions: [
+        () => {
+          return isLoggedIn();
+        },
+      ],
+    }),
+    "/schedules": wrap({
+      component: Schedule,
+      props: {},
+      conditions: [
+        () => {
+          return isLoggedIn();
+        },
+      ],
+    }),
+    "/users": wrap({
+      component: Users,
+      props: {},
+      conditions: [
+        () => {
+          return isLoggedIn();
+        },
+      ],
+    }),
+    "/categories": wrap({
+      component: Categories,
+      props: {},
+      conditions: [
+        () => {
+          return isLoggedIn();
+        },
+      ],
+    }),
+    "/events": wrap({
+      component: Events,
+      props: {},
+      conditions: [
+        () => {
+          return isLoggedIn();
+        },
+      ],
+    }),
+  };
 
   let closeSidebar = true;
 
-  $: loggedIn = false;
+  const routeLoaded = (event) => {
+    console.log("routeLoading event");
+    console.log("Route", event.detail.route);
+    console.log("Location", event.detail.location);
+    console.log("Querystring", event.detail.querystring);
+    console.log("User data", event.detail.userData);
+  };
+
+  const routeLoading = (event) => {
+    console.log("routeLoaded event");
+    // The first 5 properties are the same as for the routeLoading event
+    console.log("Route", event.detail.route);
+    console.log("Location", event.detail.location);
+    console.log("Querystring", event.detail.querystring);
+    console.log("Params", event.detail.params);
+    console.log("User data", event.detail.userData);
+    // The last two properties are unique to routeLoaded
+    console.log("Component", event.detail.component); // This is a Svelte component, so a function
+    console.log("Name", event.detail.name);
+  };
+
+  const isLoggedIn = () => {
+    if ($scheduleStore) {
+      return $scheduleStore.loggedIn;
+    } else {
+      return false;
+    }
+  };
 
   const arrowClick = (event) => {
     let arrowParent = event.target.parentElement.parentElement.parentElement;
@@ -45,66 +126,22 @@
     console.log(event);
     closeSidebar = !closeSidebar;
   };
-  
- 
 
-  const routes = {
-    "/welcome": wrap({
-      component: Welcome,
-      props: {},
-      conditions: [
-        () => {
-          return loggedIn;
-        },
-      ],
-    }),
-    "/schedules": wrap({
-      component: Schedule,
-      props: {},
-      conditions: [
-        () => {
-          return loggedIn;
-        },
-      ],
-    }),
-    "/users": wrap({
-      component: Users,
-      props: {},
-      conditions: [
-        () => {
-          return loggedIn;
-        },
-      ],
-    }),
-    "/categories": wrap({
-      component: Categories,
-      props: {},
-      conditions: [
-        () => {
-          return loggedIn;
-        },
-      ],
-    }),
-    "/events": wrap({
-      component: Events,
-      props: {},
-      conditions: [
-        () => {
-          return loggedIn;
-        },
-      ],
-    }),
-  };
+  scheduleStore.subscribe((scheduleObject) => {
+    if (!scheduleObject) {
+      return;
+    }
+    let navBarAndRoutes = updatedRoutes(scheduleObject);
 
+    console.log(routes);
+  });
 
-  console.log(routes);
-
-  const unsubscribe = scheduleStore.subscribe((scheduleObject) => {
-    if (!scheduleObject) {return}; 
-    loggedIn = scheduleObject.loggedIn;
-		console.log(loggedIn)
-	});
-
+  afterUpdate(() => {
+    /* if (Object.entries(routes).length === 0) {
+      return;
+    }
+    push(Object.keys(routes)[0]); */
+  });
 </script>
 
 <div class="sidebar" class:close={closeSidebar}>
@@ -153,12 +190,17 @@
 </div>
 <section class="home-section">
   <div class="home-content">
-    <i class="bx-menu" on:click={sidebarClick}><IconifyIcon icon={menuIcon} /></i>
+    <i class="bx-menu" on:click={sidebarClick}
+      ><IconifyIcon icon={menuIcon} /></i
+    >
     <span class="text">Drop Down Sidebar</span>
   </div>
-  <Router {routes} />
+  <Router
+    {routes}
+    on:routeLoading={routeLoading}
+    on:routeLoaded={routeLoaded}
+  />
 </section>
-
 
 <style>
   @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
@@ -225,8 +267,7 @@
   }
 
   :global(.sidebar.close .nav-links) {
-    overflow: visible
-
+    overflow: visible;
   }
 
   :global(.sidebar .nav-links::-webkit-scrollbar) {
@@ -352,7 +393,6 @@
     padding: 3px 20px 6px 16px;
     opacity: 0;
     pointer-events: none;
-    
   }
 
   :global(.sidebar .nav-links li:hover .sub-menu.blank) {
@@ -380,8 +420,9 @@
     align-items: center;
   }
 
-  :global(.home-section .home-content .bx-menu,
-  .home-section .home-content .text) {
+  :global(.home-section .home-content .bx-menu, .home-section
+      .home-content
+      .text) {
     color: #11101d;
     font-size: 35px;
   }
