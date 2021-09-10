@@ -1,4 +1,6 @@
 <script lang="ts">
+  import "./scss/index.scss";
+
   import { updatedNavbar } from "./routes";
 
   import IconifyIcon from "@iconify/svelte";
