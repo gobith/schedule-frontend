@@ -1,93 +1,56 @@
-import { wrap } from "svelte-spa-router/wrap";
-import Welcome from "./components/welcome/Welcome.svelte";
-import welcomeIcon from "@iconify-icons/bx/bx-calendar-check";
-
-import Login from "./components/login/Login.svelte";
 import loginIcon from "@iconify-icons/bx/bx-log-in-circle";
+import welcomeIcon from "@iconify-icons/bx/bx-calendar-check";
+import schedulesIcon from "@iconify-icons/bx/bx-grid-alt";
+import categoriesIcon from "@iconify-icons/bx/bx-category-alt";
+import usersIcon from "@iconify-icons/bx/bx-user";
+import eventsIcon from "@iconify-icons/bx/bx-calendar-event";
 
-export const updatedRoutes = (scheduleStore) => {
+
+export const updatedNavbar = (scheduleStore) => {
   const navbar = [];
-  const routes = {};
+  
+  ensureLogin(scheduleStore, navbar);
+  ensureWelcome(scheduleStore, navbar);
+  ensureSchedules(scheduleStore, navbar);
+  ensureCategories(scheduleStore, navbar);
+  ensureUsers(scheduleStore, navbar);
+  ensureEvents(scheduleStore, navbar);
 
-  ensureLogin(scheduleStore, navbar, routes);
-  ensureWelcome(scheduleStore, navbar, routes);
-
-  return {navbar , routes};
+  return navbar
 };
 
-const ensureLogin = (scheduleStore, navbar, routes) => {
-  if (scheduleStore.loggedIn) {
-    return;
-  }
-
-  const route = "#/login";
-  const navbarItem = { route, title: "Login", icon: loginIcon };
-  const routeWrap = wrap({
-    component: Login,
-  });
-
+const ensureLogin = (scheduleStore, navbar) => {
+  if (scheduleStore.loggedIn) {return};
+  const navbarItem = { route: "#/login", title: "Login", icon: loginIcon };
   navbar.push(navbarItem);
-  routes[route] = routeWrap;
 };
 
-const ensureWelcome = (scheduleStore, navbar, routes) => {
+const ensureWelcome = (scheduleStore, navbar) => {
   if(!scheduleStore.loggedIn) {return};
-  console.log("LOGGED IN")
+  const navbarItem = { route: "#/welcome", title: "Welcome", icon: welcomeIcon };
+  navbar.push(navbarItem);
 }
 
-/* return [
-  {
-    route: "#/welcome",
-    component: Welcome,
-    title: "Algemeen",
-    icon: welcomeIcon,
-  },
-]; */
+const ensureSchedules = (scheduleStore, navbar) => {
+  if(!scheduleStore.loggedIn) {return};
+  const navbarItem = { route: "#/schedules", title: "Roosters", icon: schedulesIcon };
+  navbar.push(navbarItem);
+}
 
-/* const routes = {
-  "/welcome": wrap({
-    component: Welcome,
-    props: {},
-    conditions: [
-      () => {
-        return loggedIn;
-      },
-    ],
-  }),
-  "/schedules": wrap({
-    component: Schedule,
-    props: {},
-    conditions: [
-      () => {
-        return loggedIn;
-      },
-    ],
-  }),
-  "/users": wrap({
-    component: Users,
-    props: {},
-    conditions: [
-      () => {
-        return loggedIn;
-      },
-    ],
-  }),
-  "/categories": wrap({
-    component: Categories,
-    props: {},
-    conditions: [
-      () => {
-        return loggedIn;
-      },
-    ],
-  }),
-  "/events": wrap({
-    component: Events,
-    props: {},
-    conditions: [
-      () => {
-        return loggedIn;
-      },
-    ],
-  }),
-}; */
+const ensureCategories = (scheduleStore, navbar) => {
+  if(!scheduleStore.loggedIn) {return};
+  const navbarItem = { route: "#/categories", title: "Categories", icon: categoriesIcon };
+  navbar.push(navbarItem);
+}
+
+const ensureUsers = (scheduleStore, navbar) => {
+  if(!scheduleStore.loggedIn) {return};
+  const navbarItem = { route: "#/users", title: "Gebruikers", icon: usersIcon };
+  navbar.push(navbarItem);
+}
+
+const ensureEvents = (scheduleStore, navbar) => {
+  if(!scheduleStore.loggedIn) {return};
+  const navbarItem = { route: "#/events", title: "Events", icon: eventsIcon };
+  navbar.push(navbarItem);
+}

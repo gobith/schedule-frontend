@@ -1,7 +1,5 @@
 <script lang="ts">
-  import { updatedRoutes } from "./routes";
-
-  import { afterUpdate } from "svelte";
+  import { updatedNavbar } from "./routes";
 
   import IconifyIcon from "@iconify/svelte";
   import runIcon from "@iconify-icons/bx/bx-run";
@@ -85,6 +83,9 @@
     }),
   };
 
+  $: navbar = [];
+  $: loggedIn = false;
+
   let closeSidebar = true;
 
   const routeLoaded = (event) => {
@@ -109,11 +110,7 @@
   };
 
   const isLoggedIn = () => {
-    if ($scheduleStore) {
-      return $scheduleStore.loggedIn;
-    } else {
-      return false;
-    }
+    return loggedIn
   };
 
   const arrowClick = (event) => {
@@ -131,17 +128,14 @@
     if (!scheduleObject) {
       return;
     }
-    let navBarAndRoutes = updatedRoutes(scheduleObject);
+    loggedIn = scheduleObject.loggedIn;
+    navbar = updatedNavbar(scheduleObject);
+    if (!loggedIn) {push("#/login")} else {push("#/welcome")}
 
-    console.log(routes);
+    
   });
 
-  afterUpdate(() => {
-    /* if (Object.entries(routes).length === 0) {
-      return;
-    }
-    push(Object.keys(routes)[0]); */
-  });
+  
 </script>
 
 <div class="sidebar" class:close={closeSidebar}>
@@ -194,6 +188,9 @@
       ><IconifyIcon icon={menuIcon} /></i
     >
     <span class="text">Drop Down Sidebar</span>
+    {#if loggedIn}
+    <Logout />
+    {/if}
   </div>
   <Router
     {routes}
