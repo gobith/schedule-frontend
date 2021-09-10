@@ -39,9 +39,6 @@
     height: 3em;
   }
   td:hover {
-    border-right: 2px solid blue;
-    border-bottom: 2px solid blue;
-    border-top: 2px solid blue;
-    border-left: 2px solid blue;
+    outline: 2px solid blue;
   }
 </style>

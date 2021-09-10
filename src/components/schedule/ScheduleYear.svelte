@@ -69,7 +69,7 @@
 
 <style>
   table {
-    font-size: 8px;
+    font-size: 4pt;
     border-collapse: collapse;
     position: relative;
   }

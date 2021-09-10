@@ -18,5 +18,14 @@
 
 <style>
 
-    div {background-color: red;}
+    div {
+        display: grid;
+        grid-template-rows: 0.66fr auto 1fr 78px;
+        grid-template-columns: 1fr auto 1fr;
+        height: 100%;
+    }
+
+    form {
+        grid-area: 2/2;
+    }
 </style>

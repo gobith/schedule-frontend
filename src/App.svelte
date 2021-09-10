@@ -187,11 +187,13 @@
       <Logout />
     {/if}
   </div>
-  <Router
-    {routes}
-    on:routeLoading={routeLoading}
-    on:routeLoaded={routeLoaded}
-  />
+  <div class='home-body'>
+    <Router
+      {routes}
+      on:routeLoading={routeLoading}
+      on:routeLoaded={routeLoaded}
+    />
+  </div>
 </section>
 
 <style>
@@ -202,6 +204,21 @@
     padding: 0px;
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
+  }
+
+  :global(body) {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  :global(.home-body) {
+    overflow: auto;
+    height: inherit;
+  }
+
+  :global(.home-body > div) {
+    padding-left: 20px;
   }
 
   :global(.sidebar) {
