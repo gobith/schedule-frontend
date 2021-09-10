@@ -29,6 +29,10 @@
 
   import Schedule from "./components/schedule/Schedule.svelte";
 
+  const isLoggedIn = () => loggedIn;
+
+
+
   const routes = {
     "/login": wrap({
       component: Login,
@@ -70,9 +74,7 @@
       component: Categories,
       props: {},
       conditions: [
-        () => {
-          return isLoggedIn();
-        },
+        isLoggedIn,
       ],
     }),
     "/events": wrap({
@@ -80,7 +82,7 @@
       props: {},
       conditions: [
         () => {
-          return isLoggedIn();
+          return loggedIn;
         },
       ],
     }),
@@ -110,10 +112,6 @@
     // The last two properties are unique to routeLoaded
     console.log("Component", event.detail.component); // This is a Svelte component, so a function
     console.log("Name", event.detail.name);
-  };
-
-  const isLoggedIn = () => {
-    return loggedIn;
   };
 
   const arrowClick = (event) => {
